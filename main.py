@@ -44,7 +44,7 @@ class CrimeTracker(QWidget):
 
     def initUI(self):
         self.setWindowTitle("Crime Tracker")
-        self.setGeometry(900, 600, 1000, 800)
+        self.setGeometry(900, 500, 1000, 800)
 
         # main window layout
         layout = QHBoxLayout()
@@ -175,6 +175,78 @@ class CrimeTracker(QWidget):
             QScrollBar::add-line:vertical,
             QScrollBar::sub-line:vertical {
                 height: 0px;
+            }
+            
+            /* =========================
+               HOME PAGE
+               ========================= */
+            
+            QLabel#home-title {
+                font-family: "Segoe UI";
+                font-size: 40px;
+                font-weight: 700;
+                color: #111827;
+            }
+            
+            QLabel#home-tag {
+                font-family: "Segoe UI";
+                font-size: 22px;
+                font-weight: 400;
+                color: #6B7280;
+            }
+            
+            QLabel#postcode-label {
+                font-family: "Segoe UI";
+                font-size: 30px;
+                font-weight: 600;
+                color: #374151;
+            }
+            
+            QLineEdit#postcode-input {
+                min-width: 260px;
+                max-width: 260px;
+            
+                padding: 14px 16px;
+            
+                background-color: #FFFFFF;
+                color: #111827;
+            
+                border: 2px solid #D1D5DB;
+                border-radius: 10px;
+            
+                font-family: "Segoe UI";
+                font-size: 20px;
+            }
+            
+            QLineEdit#postcode-input:focus {
+                border: 2px solid #3B82F6;
+            }
+            
+            QPushButton#search-button {
+                min-width: 260px;
+                max-width: 260px;
+            
+                padding: 14px 16px;
+            
+                background-color: #3B82F6;
+                color: #FFFFFF;
+            
+                border: none;
+                border-radius: 10px;
+            
+                font-family: "Segoe UI";
+                font-size: 24px;
+                font-weight: 700;
+            
+                text-align: center;
+            }
+            
+            QPushButton#search-button:hover {
+                background-color: #2563EB;
+            }
+            
+            QPushButton#search-button:pressed {
+                background-color: #1D4ED8;
             }
         """)
 
