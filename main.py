@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QStackedWidget, QPushButton, QLabel, QHBoxLayout, QVBoxLayout
 from PyQt5.QtCore import Qt
+from pathlib import Path
 
 from pages import HomePage, AboutPage, HowToUsePage, HistoryPage
 
@@ -43,8 +44,8 @@ class CrimeTracker(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle("Crime Tracker")
-        self.setGeometry(900, 500, 1000, 800)
+        self.setWindowTitle("Crime Tracker by Ali Ansari")
+        self.setGeometry(700, 300, 1200, 1000)
 
         # main window layout
         layout = QHBoxLayout()
@@ -53,202 +54,7 @@ class CrimeTracker(QWidget):
         self.setLayout(layout)
 
         # full styles
-        self.setStyleSheet("""
-            /* =========================
-               WHOLE APPLICATION
-               ========================= */
-
-            CrimeTracker {
-                background-color: #F3F4F6;
-            }
-
-
-            /* =========================
-               NAVIGATION SIDEBAR
-               ========================= */
-
-            QWidget#nav-bar {
-                background-color: #1F2937;
-                border-radius: 12px;
-            }
-
-
-            /* =========================
-               NAVIGATION BUTTONS
-               ========================= */
-
-            QPushButton {
-                background-color: transparent;
-                color: #D1D5DB;
-
-                border: none;
-                border-radius: 8px;
-
-                padding: 14px 18px;
-
-                font-family: "Segoe UI";
-                font-size: 32px;
-                font-weight: bold;
-
-                text-align: left;
-            }
-
-            QPushButton:hover {
-                background-color: #374151;
-                color: #FFFFFF;
-            }
-
-            QPushButton:pressed {
-                background-color: #4B5563;
-            }
-
-
-            /* =========================
-               MAIN PAGE AREA
-               ========================= */
-
-            QStackedWidget {
-                background-color: #FFFFFF;
-                border: 1px solid #E5E7EB;
-                border-radius: 12px;
-            }
-
-
-            /* =========================
-               TEXT
-               ========================= */
-
-            QLabel {
-                background-color: transparent;
-                color: #111827;
-
-                font-family: "Segoe UI";
-                font-size: 16px;
-            }
-
-
-            /* =========================
-               TEXT INPUTS
-               (for your Home page later)
-               ========================= */
-
-            QLineEdit {
-                background-color: #FFFFFF;
-                color: #111827;
-
-                border: 2px solid #D1D5DB;
-                border-radius: 8px;
-
-                padding: 10px 12px;
-
-                font-family: "Segoe UI";
-                font-size: 16px;
-            }
-
-            QLineEdit:focus {
-                border: 2px solid #3B82F6;
-            }
-
-
-            /* =========================
-               SCROLLBARS
-               (for About / How To Use later)
-               ========================= */
-
-            QScrollBar:vertical {
-                background-color: #F3F4F6;
-                width: 10px;
-                margin: 0px;
-                border: none;
-            }
-
-            QScrollBar::handle:vertical {
-                background-color: #9CA3AF;
-                border-radius: 5px;
-                min-height: 30px;
-            }
-
-            QScrollBar::handle:vertical:hover {
-                background-color: #6B7280;
-            }
-
-            QScrollBar::add-line:vertical,
-            QScrollBar::sub-line:vertical {
-                height: 0px;
-            }
-            
-            /* =========================
-               HOME PAGE
-               ========================= */
-            
-            QLabel#home-title {
-                font-family: "Segoe UI";
-                font-size: 40px;
-                font-weight: 700;
-                color: #111827;
-            }
-            
-            QLabel#home-tag {
-                font-family: "Segoe UI";
-                font-size: 22px;
-                font-weight: 400;
-                color: #6B7280;
-            }
-            
-            QLabel#postcode-label {
-                font-family: "Segoe UI";
-                font-size: 30px;
-                font-weight: 600;
-                color: #374151;
-            }
-            
-            QLineEdit#postcode-input {
-                min-width: 260px;
-                max-width: 260px;
-            
-                padding: 14px 16px;
-            
-                background-color: #FFFFFF;
-                color: #111827;
-            
-                border: 2px solid #D1D5DB;
-                border-radius: 10px;
-            
-                font-family: "Segoe UI";
-                font-size: 20px;
-            }
-            
-            QLineEdit#postcode-input:focus {
-                border: 2px solid #3B82F6;
-            }
-            
-            QPushButton#search-button {
-                min-width: 260px;
-                max-width: 260px;
-            
-                padding: 14px 16px;
-            
-                background-color: #3B82F6;
-                color: #FFFFFF;
-            
-                border: none;
-                border-radius: 10px;
-            
-                font-family: "Segoe UI";
-                font-size: 24px;
-                font-weight: 700;
-            
-                text-align: center;
-            }
-            
-            QPushButton#search-button:hover {
-                background-color: #2563EB;
-            }
-            
-            QPushButton#search-button:pressed {
-                background-color: #1D4ED8;
-            }
-        """)
+        self.setStyleSheet(self.load_styles())
 
         # nav-bar layout
         nav_layout = QVBoxLayout()
@@ -310,6 +116,17 @@ class CrimeTracker(QWidget):
                 color: white;
             }
         """)
+
+    @staticmethod
+    def load_styles():
+        folder = Path("styles")
+        combined_styles = ""
+
+        for file in folder.glob("*.css"):
+            with open(file, "r") as f:
+                combined_styles += f.read()
+
+        return combined_styles
 
 
 if __name__ == "__main__":

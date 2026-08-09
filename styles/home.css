@@ -1,0 +1,67 @@
+QLabel#home-title {
+    font-family: "Segoe UI";
+    font-size: 56px;
+    font-weight: 700;
+    color: #111827;
+}
+
+QLabel#home-tag {
+    font-family: "Segoe UI";
+    font-size: 30px;
+    font-weight: 400;
+    color: #6B7280;
+}
+
+QLabel#postcode-label {
+    font-family: "Segoe UI";
+    font-size: 38px;
+    font-weight: 600;
+    color: #374151;
+}
+
+QLineEdit#postcode-input {
+    min-width: 380px;
+    max-width: 380px;
+
+    padding: 18px 20px;
+
+    background-color: #FFFFFF;
+    color: #111827;
+
+    border: 2px solid #D1D5DB;
+    border-radius: 12px;
+
+    font-family: "Segoe UI";
+    font-size: 26px;
+}
+
+QLineEdit#postcode-input:focus {
+    border: 2px solid #3B82F6;
+}
+
+QPushButton#search-button {
+    min-width: 380px;
+    max-width: 380px;
+
+    padding: 18px 20px;
+
+    background-color: #3B82F6;
+    color: #FFFFFF;
+
+    border: none;
+    border-radius: 12px;
+
+    font-family: "Segoe UI";
+    font-size: 30px;
+    font-weight: 700;
+
+    text-align: center;
+}
+
+QPushButton#search-button:hover {
+    background-color: #2563EB;
+}
+
+QPushButton#search-button:pressed {
+    background-color: #1D4ED8;
+}

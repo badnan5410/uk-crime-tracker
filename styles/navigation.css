@@ -1,0 +1,29 @@
+QWidget#nav-bar {
+    background-color: #1F2937;
+    border-radius: 12px;
+}
+
+QPushButton {
+    background-color: transparent;
+    color: #D1D5DB;
+
+    border: none;
+    border-radius: 8px;
+
+    padding: 14px 18px;
+
+    font-family: "Segoe UI";
+    font-size: 32px;
+    font-weight: bold;
+
+    text-align: left;
+}
+
+QPushButton:hover {
+    background-color: #374151;
+    color: #FFFFFF;
+}
+
+QPushButton:pressed {
+    background-color: #4B5563;
+}
