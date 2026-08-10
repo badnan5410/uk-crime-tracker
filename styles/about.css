@@ -1,0 +1,71 @@
+QScrollArea#about-scroll {
+    background-color: #FFFFFF;
+    border: none;
+}
+
+QScrollArea#about-scroll > QWidget > QWidget {
+    background-color: #FFFFFF;
+}
+
+
+QLabel#about-title {
+    background-color: transparent;
+    color: #111827;
+
+    font-family: "Segoe UI";
+    font-size: 48px;
+    font-weight: 700;
+
+    padding: 30px 40px 10px 40px;
+}
+
+
+QLabel#about-text {
+    background-color: transparent;
+    color: #374151;
+
+    font-family: "Segoe UI";
+    font-size: 22px;
+    font-weight: 400;
+
+    padding: 10px 40px 40px 40px;
+}
+
+
+QScrollArea#about-scroll QScrollBar:vertical {
+    background-color: #F3F4F6;
+
+    width: 12px;
+    margin: 4px;
+
+    border: none;
+    border-radius: 6px;
+}
+
+
+QScrollArea#about-scroll QScrollBar::handle:vertical {
+    background-color: #9CA3AF;
+
+    min-height: 40px;
+
+    border: none;
+    border-radius: 6px;
+}
+
+
+QScrollArea#about-scroll QScrollBar::handle:vertical:hover {
+    background-color: #6B7280;
+}
+
+
+QScrollArea#about-scroll QScrollBar::add-line:vertical,
+QScrollArea#about-scroll QScrollBar::sub-line:vertical {
+    height: 0px;
+    border: none;
+}
+
+
+QScrollArea#about-scroll QScrollBar::add-page:vertical,
+QScrollArea#about-scroll QScrollBar::sub-page:vertical {
+    background: none;
+}
