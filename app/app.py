@@ -20,14 +20,14 @@ class CrimeTracker(QWidget):
 
         self.stack = QStackedWidget()
 
-        # buttons
+        # navigation nav_buttons
         self.home_button = self.create_nav_button("Home", "home-page")
         self.about_button = self.create_nav_button("About Us", "about-page")
         self.how_to_use_button = self.create_nav_button("How to Use", "how-to-use-page")
         self.history_button = self.create_nav_button("Your History", "history-page")
         self.exit_button = self.create_nav_button("Exit")
 
-        self.buttons = [
+        self.nav_buttons = [
             self.home_button,
             self.about_button,
             self.how_to_use_button,
@@ -77,7 +77,7 @@ class CrimeTracker(QWidget):
             self.stack.addWidget(page)
 
         # show pages
-        for button in self.buttons:
+        for button in self.nav_buttons:
             button.clicked.connect(self.display_page)
 
     def create_nav_button(self, button_name, button_tag=None):
@@ -107,11 +107,16 @@ class CrimeTracker(QWidget):
         button_tag = button.objectName()
 
         page = self.pages.get(button_tag)
+
+        if page.tag == "home-page":
+            page.postcode_input.setText("")
+            page.error_label.setText("")
+
         self.stack.setCurrentWidget(page)
         self.highlight_button(button)
 
     def highlight_button(self, active_button):
-        for button in self.buttons:
+        for button in self.nav_buttons:
             button.setStyleSheet("")
 
         active_button.setStyleSheet("""

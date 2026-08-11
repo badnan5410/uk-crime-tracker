@@ -65,3 +65,11 @@ QPushButton#search-button:hover {
 QPushButton#search-button:pressed {
     background-color: #1D4ED8;
 }
+
+QLabel#error-label {
+    color: #DC2626;
+
+    font-family: "Segoe UI";
+    font-size: 24px;
+    font-weight: 500;
+}

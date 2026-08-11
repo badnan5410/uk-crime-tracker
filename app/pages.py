@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QLineEdit, QScrollArea
 from PyQt5.QtCore import Qt
 from textwrap import dedent
+from api import postcodes
 
 class HomePage(QWidget):
     def __init__(self):
@@ -20,26 +21,26 @@ class HomePage(QWidget):
         self.postcode_input = QLineEdit()
         self.postcode_input.setPlaceholderText("e.g. SW1A 1AA")
         self.search_button = QPushButton("Find out now", self)
+        self.error_label = QLabel(self)
 
         self.title_label.setObjectName("home-title")
         self.tag_label.setObjectName("home-tag")
         self.input_label.setObjectName("postcode-label")
         self.postcode_input.setObjectName("postcode-input")
         self.search_button.setObjectName("search-button")
+        self.error_label.setObjectName("error-label")
 
         self.initUI()
 
     def initUI(self):
         # layout & alignment
         layout = QVBoxLayout()
-
         layout.addStretch()
 
         layout.addWidget(self.title_label, alignment=Qt.AlignCenter)
         layout.addSpacing(10)
 
         layout.addWidget(self.tag_label, alignment=Qt.AlignCenter)
-
         layout.addSpacing(100)
 
         layout.addWidget(self.input_label, alignment=Qt.AlignCenter)
@@ -50,9 +51,33 @@ class HomePage(QWidget):
 
         layout.addWidget(self.search_button, alignment=Qt.AlignCenter)
 
-        layout.addStretch()
+        layout.addWidget(self.error_label, alignment=Qt.AlignCenter)
 
+        layout.addStretch()
         self.setLayout(layout)
+
+        # search button
+        self.search_button.clicked.connect(self.search_postcode)
+
+    def search_postcode(self):
+        postcode = self.postcode_input.text()
+
+        if postcode == "":
+            self.error_label.setText("Please enter a postcode")
+        else:
+            data = postcodes.get_postcode(postcode)
+
+            if data is None:
+                self.error_label.setText("This postcode does not exist")
+            else:
+                # temporary
+                info = ""
+
+                for key in data:
+                    info += f"{key}: {data[key]},\n"
+
+                self.error_label.setText(info)
+
 
 class AboutPage(QWidget):
     def __init__(self):

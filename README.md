@@ -6,7 +6,7 @@ A desktop application for exploring crime data across the UK by postcode.
 
 🚧 Currently in development.
 
-The initial user interface is complete. Development is now moving into API integration and crime data retrieval.
+Stage 2 — the initial user interface and application structure — is complete. Development is now moving into Stage 3: API integration and crime data retrieval.
 
 ## Current Features
 
@@ -16,6 +16,7 @@ The initial user interface is complete. Development is now moving into API integ
 - About page
 - Custom QSS styling
 - Modular stylesheet system
+- Organised application package structure
 
 ## Planned Features
 
@@ -24,8 +25,9 @@ The initial user interface is complete. Development is now moving into API integ
 - Display crime statistics for the searched area
 - Explore crime categories
 - Visualise crime data with charts and trends
-- View previous searches
 - Results dashboard
+- Search history
+- Revisit previous searches
 - In-app usage guide
 
 ## Tech Stack
@@ -40,9 +42,21 @@ The initial user interface is complete. Development is now moving into API integ
 ```text
 uk-crime-tracker/
 ├── main.py
-├── pages.py
+│
+├── app/
+│   ├── __init__.py
+│   ├── app.py
+│   └── pages.py
+│
+├── api/
+│   ├── __init__.py
+│   └── postcodes.py
+│
 ├── styles/
-│   ├── ...
+│   ├── base.css
+│   ├── navigation.css
 │   ├── home.css
 │   └── about.css
-└── README.md
+│
+├── README.md
+└── .gitignore
