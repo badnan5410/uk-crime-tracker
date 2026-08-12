@@ -60,15 +60,15 @@ class HomePage(QWidget):
         self.search_button.clicked.connect(self.search_postcode)
 
     def search_postcode(self):
-        postcode = self.postcode_input.text()
+        postcode = self.postcode_input.text().strip()
 
         if postcode == "":
             self.error_label.setText("Please enter a postcode")
         else:
-            data = postcodes.get_postcode(postcode)
+            data, message = postcodes.get_postcode(postcode)
 
             if data is None:
-                self.error_label.setText("This postcode does not exist")
+                self.error_label.setText(message)
             else:
                 # temporary
                 info = ""
