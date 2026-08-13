@@ -1,5 +1,4 @@
-from pathlib import Path
-
+import sys
 from PyQt5.QtWidgets import (
     QWidget,
     QStackedWidget,
@@ -11,7 +10,7 @@ from PyQt5.QtWidgets import (
 from app.pages import HomePage, AboutPage, HowToUsePage, HistoryPage
 
 
-class CrimeTracker(QWidget):
+class MenuWidget(QWidget):
     def __init__(self):
         super().__init__()
 
@@ -36,10 +35,10 @@ class CrimeTracker(QWidget):
         ]
 
         # pages
-        self.home_page = self.create_page("home-page")
-        self.about_page = self.create_page("about-page")
-        self.how_to_use_page = self.create_page("how-to-use-page")
-        self.history_page = self.create_page("history-page")
+        self.home_page = HomePage()
+        self.about_page = AboutPage()
+        self.how_to_use_page = HowToUsePage()
+        self.history_page = HistoryPage()
 
         self.pages = {
             "home-page": self.home_page,
@@ -51,17 +50,12 @@ class CrimeTracker(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle("Crime Tracker by Ali Ansari")
-        self.setGeometry(700, 300, 1200, 1000)
 
         # main window layout
         layout = QHBoxLayout()
         layout.addWidget(self.nav_bar, 1)
         layout.addWidget(self.stack, 4)
         self.setLayout(layout)
-
-        # full styles
-        self.setStyleSheet(self.load_styles())
 
         # nav-bar layout
         nav_layout = QVBoxLayout()
@@ -80,29 +74,11 @@ class CrimeTracker(QWidget):
         for button in self.nav_buttons:
             button.clicked.connect(self.display_page)
 
-    def create_nav_button(self, button_name, button_tag=None):
-        button = QPushButton(button_name)
-
-        if button_tag is not None:
-            button.setObjectName(button_tag)
-
-        return button
-
-    def create_page(self, page_tag):
-        pages = {
-            "home-page": HomePage(),
-            "about-page": AboutPage(),
-            "how-to-use-page": HowToUsePage(),
-            "history-page": HistoryPage()
-        }
-
-        return pages[page_tag]
-
     def display_page(self):
         button = self.sender()
 
         if not button.objectName():
-            self.close()
+            sys.exit()
 
         button_tag = button.objectName()
 
@@ -132,12 +108,10 @@ class CrimeTracker(QWidget):
         """)
 
     @staticmethod
-    def load_styles():
-        folder = Path("styles")
-        combined_styles = ""
+    def create_nav_button(button_name, button_tag=None):
+        button = QPushButton(button_name)
 
-        for file in folder.glob("*.css"):
-            with open(file, "r") as f:
-                combined_styles += f.read()
+        if button_tag is not None:
+            button.setObjectName(button_tag)
 
-        return combined_styles
+        return button

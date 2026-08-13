@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication
-from app.app import CrimeTracker
+from app.crime_tracker import CrimeTracker
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
