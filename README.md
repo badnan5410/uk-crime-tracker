@@ -8,29 +8,33 @@ A desktop application for exploring crime data across the UK by postcode.
 
 Stage 2 — the initial user interface and application structure — is complete.
 
-Development is currently in Stage 3, focusing on API integration, results handling, and crime data retrieval. UK postcode lookup and validation have now been implemented.
+Development is currently in Stage 3. Postcode API integration and the results interface are now implemented. Development is moving into Police API integration to retrieve real crime data using postcode coordinates.
 
 ## Current Features
 
 - Desktop interface built with PyQt5
-- Multi-page navigation
+- Multi-page application navigation
 - UK postcode search interface
 - Postcode lookup and validation using Postcodes.io
-- Postcode location data retrieval
+- Postcode location and coordinate retrieval
 - API error and exception handling
 - User-facing postcode error messages
+- Results interface with separate navigation
+- Overview and Categories result pages
+- Navigation between search and results interfaces
+- Custom PyQt signals for communication between application components
+- New Search functionality
 - About page
 - Custom QSS styling
 - Modular stylesheet system
 - Modular application and API package structure
-- Separate application and menu widget layers
 
 ## Planned Features
 
-- Results dashboard
 - Retrieve local crime data using postcode coordinates
-- Display crime statistics for the searched area
-- Explore crime categories
+- Process and organise Police API responses
+- Display crime statistics in the results overview
+- Explore crime data by category
 - Visualise crime data with charts and trends
 - Search history
 - Revisit previous searches
@@ -54,6 +58,7 @@ uk-crime-tracker/
 │   ├── __init__.py
 │   ├── crime_tracker.py
 │   ├── menu_widget.py
+│   ├── results_widget.py
 │   └── pages.py
 │
 ├── api/
@@ -68,3 +73,4 @@ uk-crime-tracker/
 │
 ├── README.md
 └── .gitignore
+```

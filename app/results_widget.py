@@ -1,4 +1,3 @@
-import sys
 from PyQt5.QtWidgets import (
     QWidget,
     QStackedWidget,
@@ -7,44 +6,42 @@ from PyQt5.QtWidgets import (
     QVBoxLayout
 )
 
-from app.pages import HomePage, AboutPage, HowToUsePage, HistoryPage
+from PyQt5.QtCore import pyqtSignal
+from app.pages import Overview, Categories
 
+class ResultsWidget(QWidget):
+    new_search = pyqtSignal()
 
-class MenuWidget(QWidget):
     def __init__(self):
         super().__init__()
+
+        # data types
+        self.geo_data = None
+        self.police_data = None
 
         self.nav_bar = QWidget()
         self.nav_bar.setObjectName("nav-bar")
 
         self.stack = QStackedWidget()
 
-        # navigation nav_buttons
-        self.home_button = self.create_nav_button("Home", "home-page")
-        self.about_button = self.create_nav_button("About Us", "about-page")
-        self.how_to_use_button = self.create_nav_button("How to Use", "how-to-use-page")
-        self.history_button = self.create_nav_button("Your History", "history-page")
-        self.exit_button = self.create_nav_button("Exit")
+        # navigation buttons
+        self.overview_button = self.create_nav_button("Overview", "overview-page")
+        self.categories_button = self.create_nav_button("Categories", "categories-page")
+        self.new_search_button = self.create_nav_button("New Search")
 
         self.nav_buttons = [
-            self.home_button,
-            self.about_button,
-            self.how_to_use_button,
-            self.history_button,
-            self.exit_button
+            self.overview_button,
+            self.categories_button,
+            self.new_search_button
         ]
 
         # pages
-        self.home_page = HomePage()
-        self.about_page = AboutPage()
-        self.how_to_use_page = HowToUsePage()
-        self.history_page = HistoryPage()
+        self.overview_page = Overview()
+        self.categories_page = Categories()
 
         self.pages = {
-            "home-page": self.home_page,
-            "about-page": self.about_page,
-            "how-to-use-page": self.how_to_use_page,
-            "history-page": self.history_page
+            "overview-page": self.overview_page,
+            "categories-page": self.categories_page
         }
 
         self.initUI()
@@ -52,18 +49,17 @@ class MenuWidget(QWidget):
     def initUI(self):
 
         # main widget layout
-        layout = QHBoxLayout()
+        layout = QVBoxLayout()
         layout.addWidget(self.nav_bar, 1)
         layout.addWidget(self.stack, 4)
         self.setLayout(layout)
 
         # nav-bar layout
-        nav_layout = QVBoxLayout()
-        nav_layout.addWidget(self.home_button)
-        nav_layout.addWidget(self.about_button)
-        nav_layout.addWidget(self.how_to_use_button)
-        nav_layout.addWidget(self.history_button)
-        nav_layout.addWidget(self.exit_button)
+        nav_layout = QHBoxLayout()
+        nav_layout.addWidget(self.overview_button)
+        nav_layout.addWidget(self.categories_button)
+        nav_layout.addStretch()
+        nav_layout.addWidget(self.new_search_button)
         self.nav_bar.setLayout(nav_layout)
 
         # add pages to stack
@@ -78,15 +74,11 @@ class MenuWidget(QWidget):
         button = self.sender()
 
         if not button.objectName():
-            sys.exit()
+            self.stack.setCurrentWidget(self.overview_page)
+            self.new_search.emit()
 
         button_tag = button.objectName()
-
         page = self.pages.get(button_tag)
-
-        if page.tag == "home-page":
-            page.postcode_input.setText("")
-            page.error_label.setText("")
 
         self.stack.setCurrentWidget(page)
         self.highlight_button(button)

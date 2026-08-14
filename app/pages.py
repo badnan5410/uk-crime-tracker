@@ -1,9 +1,12 @@
 from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QLineEdit, QScrollArea
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal
 from textwrap import dedent
 from api import postcodes
 
+# menu widget
 class HomePage(QWidget):
+    search_successful = pyqtSignal(dict)
+
     def __init__(self):
         super().__init__()
         self.tag = "home-page"
@@ -70,14 +73,9 @@ class HomePage(QWidget):
             if data is None:
                 self.error_label.setText(message)
             else:
-                # temporary
-                info = ""
-
-                for key in data:
-                    info += f"{key}: {data[key]},\n"
-
-                self.error_label.setText(info)
-
+                self.error_label.clear()
+                self.postcode_input.clear()
+                self.search_successful.emit(data)
 
 class AboutPage(QWidget):
     def __init__(self):
@@ -136,3 +134,15 @@ class HistoryPage(QWidget):
         self.tag = "history-page"
         self.page_label = QLabel("This is the history page.", self)
 
+# results widget
+class Overview(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.tag = "overview-page"
+        self.page_labe = QLabel("This is the overview page.", self)
+
+class Categories(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.tag = "categories-page"
+        self.page_labe = QLabel("This is the categories page.", self)
