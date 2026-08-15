@@ -46,7 +46,10 @@ def get_postcode(postcode):
     except requests.exceptions.RequestException as req_error:
         return None, f"Request error:\n{req_error}"
 
-
+# testing
+if __name__ == "__main__":
+    data, msg = get_postcode("hp13 5hs")
+    print(data)
 
 
 

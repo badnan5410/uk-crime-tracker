@@ -139,7 +139,7 @@ class Overview(QWidget):
     def __init__(self):
         super().__init__()
         self.tag = "overview-page"
-        self.page_labe = QLabel("This is the overview page.", self)
+        self.page_label = QLabel("This is the overview page.", self)
 
 class Categories(QWidget):
     def __init__(self):

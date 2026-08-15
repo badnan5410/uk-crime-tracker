@@ -15,7 +15,7 @@ class ResultsWidget(QWidget):
     def __init__(self):
         super().__init__()
 
-        # data types
+        # api data
         self.geo_data = None
         self.police_data = None
 
