@@ -1,11 +1,11 @@
 from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QLineEdit, QScrollArea
 from PyQt5.QtCore import Qt, pyqtSignal
 from textwrap import dedent
-from api import postcodes
+from api import postcodes, police
 
 # menu widget
 class HomePage(QWidget):
-    search_successful = pyqtSignal(dict)
+    search_successful = pyqtSignal(dict, list)
 
     def __init__(self):
         super().__init__()
@@ -68,14 +68,19 @@ class HomePage(QWidget):
         if postcode == "":
             self.error_label.setText("Please enter a postcode")
         else:
-            data, message = postcodes.get_postcode(postcode)
+            geo_data, message = postcodes.get_postcode(postcode)
 
-            if data is None:
+            if geo_data is None:
                 self.error_label.setText(message)
             else:
-                self.error_label.clear()
-                self.postcode_input.clear()
-                self.search_successful.emit(data)
+                police_data, message = police.get_police_data(geo_data["latitude"], geo_data["longitude"])
+
+                if police_data is None:
+                    self.error_label.setText(message)
+                else:
+                    self.error_label.clear()
+                    self.postcode_input.clear()
+                    self.search_successful.emit(geo_data, police_data)
 
 class AboutPage(QWidget):
     def __init__(self):

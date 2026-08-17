@@ -45,15 +45,14 @@ class CrimeTracker(QWidget):
             self.open_menu
         )
 
-    def open_results(self, data):
-        self.results_widget.geo_data = data
+    def open_results(self, geo_data, police_data):
+        self.results_widget.geo_data = geo_data
+        self.results_widget.police_data = police_data
         self.window_stack.setCurrentWidget(self.results_widget)
         self.results_widget.highlight_button(self.results_widget.overview_button)
 
     def open_menu(self):
         self.window_stack.setCurrentWidget(self.menu_widget)
-
-
 
     @staticmethod
     def load_styles():
