@@ -48,7 +48,7 @@ def get_postcode(postcode):
 
 # testing
 if __name__ == "__main__":
-    data, msg = get_postcode("hp13 5hs")
+    data, msg = get_postcode("SW1A 1AA")
     print(data)
 
 

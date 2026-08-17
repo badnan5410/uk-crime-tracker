@@ -8,7 +8,7 @@ A desktop application for exploring crime data across the UK by postcode.
 
 Stage 2 — the initial user interface and application structure — is complete.
 
-Development is currently in Stage 3. Postcode API integration and the results interface are now implemented. Development is moving into Police API integration to retrieve real crime data using postcode coordinates.
+Development is currently in Stage 3, focusing on API integration, crime data processing, and results presentation. Postcode lookup and validation are implemented, and street-level crime data can now be retrieved from the UK Police Data API using postcode coordinates.
 
 ## Current Features
 
@@ -17,8 +17,10 @@ Development is currently in Stage 3. Postcode API integration and the results in
 - UK postcode search interface
 - Postcode lookup and validation using Postcodes.io
 - Postcode location and coordinate retrieval
+- Street-level crime data retrieval using the UK Police Data API
+- Crime searches based on postcode latitude and longitude
 - API error and exception handling
-- User-facing postcode error messages
+- User-facing API error messages
 - Results interface with separate navigation
 - Overview and Categories result pages
 - Navigation between search and results interfaces
@@ -31,10 +33,10 @@ Development is currently in Stage 3. Postcode API integration and the results in
 
 ## Planned Features
 
-- Retrieve local crime data using postcode coordinates
-- Process and organise Police API responses
+- Process and organise Police API crime records
 - Display crime statistics in the results overview
 - Explore crime data by category
+- Select crime data by year and month
 - Visualise crime data with charts and trends
 - Search history
 - Revisit previous searches
@@ -63,7 +65,8 @@ uk-crime-tracker/
 │
 ├── api/
 │   ├── __init__.py
-│   └── postcodes.py
+│   ├── postcodes.py
+│   └── police.py
 │
 ├── styles/
 │   ├── base.css
@@ -73,4 +76,3 @@ uk-crime-tracker/
 │
 ├── README.md
 └── .gitignore
-```
