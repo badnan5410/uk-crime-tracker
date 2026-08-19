@@ -35,7 +35,7 @@ class CrimeTracker(QWidget):
         layout.addWidget(self.window_stack)
         self.setLayout(layout)
 
-        # switching to results
+        # switching to about_results
         self.menu_widget.home_page.search_successful.connect(
             self.open_results
         )
@@ -48,6 +48,10 @@ class CrimeTracker(QWidget):
     def open_results(self, geo_data, police_data):
         self.results_widget.geo_data = geo_data
         self.results_widget.police_data = police_data
+
+        # refresh results widget
+        self.results_widget.refresh_results()
+
         self.window_stack.setCurrentWidget(self.results_widget)
         self.results_widget.highlight_button(self.results_widget.overview_button)
 

@@ -99,6 +99,11 @@ class ResultsWidget(QWidget):
             }
         """)
 
+    def refresh_results(self):
+
+        for page in self.pages.values():
+            page.update_display(self.geo_data, self.police_data)
+
     @staticmethod
     def create_nav_button(button_name, button_tag=None):
         button = QPushButton(button_name)

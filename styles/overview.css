@@ -1,0 +1,59 @@
+QWidget#overview-header {
+    background-color: #FFFFFF;
+    border: none;
+}
+
+QWidget#overview-statistics {
+    background-color: transparent;
+}
+
+QWidget#overview-about-results {
+    background-color: #FFFFFF;
+    border: none;
+}
+
+QWidget#overview-explore-further {
+    background-color: #FFFFFF;
+    border: none;
+}
+
+QWidget#overview-total-crimes {
+    background-color: #1F2A3A;
+
+    border: 2px solid #1F2A3A;
+    border-radius: 14px;
+}
+
+QWidget#overview-common-crime {
+    background-color: #1F2A3A;
+
+    border: 2px solid #1F2A3A;
+    border-radius: 14px;
+}
+
+QLabel#overview-title-label {
+    color: #1F2937;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+QLabel#overview-total-crimes-label,
+QLabel#overview-common-crime-label {
+    color: #FFFFFF;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+QLabel#overview-about-label {
+    color: #374151;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px 24px;
+}
+
+QLabel#overview-explore-further-label {
+    color: #374151;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 15px 20px;
+}

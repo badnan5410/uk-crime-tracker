@@ -28,6 +28,20 @@ def get_police_data(lat, lng, date="2026-01"):
     except requests.exceptions.RequestException as req_error:
         return None, f"Request error:\n{req_error}"
 
+def get_most_common_crime(data):
+    crime_category = {}
+
+    for record in data:
+        current_category = record["category"]
+        if current_category in crime_category:
+            crime_category[current_category] += 1
+        else:
+            crime_category[current_category] = 1
+
+    most_common_crime = max(crime_category, key=crime_category.get)
+    return most_common_crime, crime_category[most_common_crime]
+
+
 # test
 if __name__ == "__main__":
 
