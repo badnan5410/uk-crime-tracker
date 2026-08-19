@@ -5,8 +5,8 @@ from PyQt5.QtWidgets import (
     QStackedWidget, QVBoxLayout
 )
 
-from app.menu_widget import MenuWidget
-from app.results_widget import ResultsWidget
+from app.menu.widget import MenuWidget
+from app.results.widget import ResultsWidget
 
 class CrimeTracker(QWidget):
     def __init__(self):

@@ -10,17 +10,16 @@ Stage 3 — API integration and crime data retrieval — is complete.
 
 Development is currently in Stage 4: data processing and results presentation.
 
-Stage 4a — the Overview page — is complete. Raw Police API crime records are now processed into useful summary information, including total recorded crimes, the most common crime category, location information, and reporting period.
+Stage 4a — the Overview page — is complete. Police API crime records are now processed into summary statistics and presented alongside geographic and reporting information.
 
-Development is moving into Stage 4b, which will focus on allowing users to explore individual crime records by category.
+Development is moving into Stage 4b, which will focus on allowing users to explore individual crime records.
 
 ## Current Features
 
 - Desktop interface built with PyQt5
 - Multi-page application navigation
-- UK postcode search interface
-- Postcode lookup and validation using Postcodes.io
-- Postcode location and coordinate retrieval
+- UK postcode search and validation
+- Postcode location and coordinate retrieval using Postcodes.io
 - Street-level crime data retrieval using the UK Police Data API
 - Crime searches based on postcode latitude and longitude
 - Two-stage API search and validation flow
@@ -31,18 +30,21 @@ Development is moving into Stage 4b, which will focus on allowing users to explo
 - Crime record processing and aggregation
 - Total recorded crime calculation
 - Most common crime category calculation
-- Police API reporting date formatting
-- Dynamic Overview page displaying postcode, area, reporting month, and crime statistics
-- Results interface with separate navigation
-- Overview and Categories result pages
+- Human-readable crime category and reporting date formatting
+- Dynamic Overview page displaying:
+  - searched postcode
+  - district and region
+  - reporting month and year
+  - total recorded crimes
+  - most common crime and number of reports
+- Information about approximate and anonymised crime locations
+- Separate menu and results navigation
 - Navigation between search and results interfaces
-- Custom PyQt signals for communication between application components
 - New Search functionality
+- Custom PyQt signals for communication between application components
 - About page
 - Custom QSS styling
-- Results-specific Overview styling
-- Modular stylesheet system
-- Modular application and API package structure
+- Modular application structure organised by feature
 
 ## Stage 4 — Results & Data Processing
 
@@ -55,8 +57,8 @@ Development is moving into Stage 4b, which will focus on allowing users to explo
 - Determine and display the most common crime category
 - Display the number of reports for the most common category
 - Format API crime categories and dates for presentation
-- Provide context about approximate and anonymised crime locations
-- Custom Overview page styling
+- Explain approximate and anonymised crime locations
+- Add dedicated Overview styling
 
 ### Stage 4b — View Crimes 🚧
 
@@ -68,7 +70,7 @@ Development is moving into Stage 4b, which will focus on allowing users to explo
 ### Stage 4c — Categories
 
 - Analyse the distribution of crime categories
-- Visualise crime categories using a Matplotlib bar chart
+- Visualise category distribution using a Matplotlib bar chart
 - Integrate Matplotlib visualisations into the PyQt5 results interface
 
 ## Future Features
@@ -99,9 +101,16 @@ uk-crime-tracker/
 ├── app/
 │   ├── __init__.py
 │   ├── crime_tracker.py
-│   ├── menu_widget.py
-│   ├── results_widget.py
-│   └── pages.py
+│   │
+│   ├── menu/
+│   │   ├── __init__.py
+│   │   ├── pages.py
+│   │   └── widget.py
+│   │
+│   └── results/
+│       ├── __init__.py
+│       ├── pages.py
+│       └── widget.py
 │
 ├── api/
 │   ├── __init__.py
@@ -109,11 +118,12 @@ uk-crime-tracker/
 │   └── police.py
 │
 ├── styles/
-│   ├── base.css
-│   ├── navigation.css
-│   ├── home.css
 │   ├── about.css
+│   ├── base.css
+│   ├── home.css
+│   ├── navigation.css
 │   └── overview.css
 │
 ├── README.md
 └── .gitignore
+```

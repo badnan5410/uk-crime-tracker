@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import (
 )
 
 from PyQt5.QtCore import pyqtSignal
-from app.pages import Overview, Categories
+from app.results.pages import Overview, Categories
 
 class ResultsWidget(QWidget):
     new_search = pyqtSignal()

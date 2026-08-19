@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import (
     QVBoxLayout
 )
 
-from app.pages import HomePage, AboutPage, HowToUsePage, HistoryPage
+from app.menu.pages import HomePage, AboutPage, HowToUsePage, HistoryPage
 
 
 class MenuWidget(QWidget):
