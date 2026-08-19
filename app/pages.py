@@ -244,8 +244,9 @@ class Overview(QWidget):
     def update_display(self, geo_data, police_data):
 
         # header
+        date = police.format_date(police_data[0]['month'])
         self.title_label.setText(
-            f"Crime Overview for {geo_data["postcode"]}\n{geo_data["admin_district"]}, {geo_data["region"]} • TEST MONTH"
+            f"Crime Overview for {geo_data["postcode"]}\n{geo_data["admin_district"]}, {geo_data["region"]} • {date}"
         )
 
         # statistics
@@ -256,6 +257,15 @@ class Overview(QWidget):
         most_common_crime, most_common_crime_frequency = police.get_most_common_crime(police_data)
         self.common_crime_label.setText(
             f"MOST COMMON CRIME\n{most_common_crime}\n{most_common_crime_frequency} reports"
+        )
+
+        # about
+        self.about_label.setText(
+            "ABOUT THESE RESULTS\n\n"
+            f"{len(police_data)} street-level crime records were reported within approximately "
+            f"one mile of the searched location during {date}.\n\n"
+            "Crime locations are approximate and anonymised. They should not be "
+            "interpreted as the exact locations where incidents occurred."
         )
 
 class Categories(QWidget):

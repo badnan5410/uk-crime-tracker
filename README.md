@@ -8,9 +8,11 @@ A desktop application for exploring and understanding local crime data across th
 
 Stage 3 — API integration and crime data retrieval — is complete.
 
-Development is now moving into Stage 4: data processing and results presentation. The application can validate a UK postcode, retrieve its geographic coordinates, use those coordinates to retrieve street-level crime records, and pass both datasets into the results interface.
+Development is currently in Stage 4: data processing and results presentation.
 
-Stage 4 will focus on transforming the raw crime records into useful statistics, visualisations, and searchable crime information.
+Stage 4a — the Overview page — is complete. Raw Police API crime records are now processed into useful summary information, including total recorded crimes, the most common crime category, location information, and reporting period.
+
+Development is moving into Stage 4b, which will focus on allowing users to explore individual crime records by category.
 
 ## Current Features
 
@@ -25,6 +27,12 @@ Stage 4 will focus on transforming the raw crime records into useful statistics,
 - API error and exception handling
 - User-facing API error messages
 - Geographic and crime data passed into the results interface
+- Dynamic results refresh when new search data is received
+- Crime record processing and aggregation
+- Total recorded crime calculation
+- Most common crime category calculation
+- Police API reporting date formatting
+- Dynamic Overview page displaying postcode, area, reporting month, and crime statistics
 - Results interface with separate navigation
 - Overview and Categories result pages
 - Navigation between search and results interfaces
@@ -32,19 +40,36 @@ Stage 4 will focus on transforming the raw crime records into useful statistics,
 - New Search functionality
 - About page
 - Custom QSS styling
+- Results-specific Overview styling
 - Modular stylesheet system
 - Modular application and API package structure
 
 ## Stage 4 — Results & Data Processing
 
-Planned work for the current development stage:
+### Stage 4a — Overview ✅
 
-- Process and aggregate raw Police API crime records
-- **Overview** — display postcode, area, reporting month, total recorded crimes, and headline statistics
-- **Categories** — analyse crime types and visualise their distribution using a Matplotlib bar chart
-- **View Crimes** — allow users to select a crime category and explore individual crime records
-- Display approximate crime locations and available outcome information
-- Add results-specific styling and presentation
+- Process raw Police API crime records
+- Display searched postcode and geographic area
+- Display reporting month and year
+- Calculate and display total recorded crimes
+- Determine and display the most common crime category
+- Display the number of reports for the most common category
+- Format API crime categories and dates for presentation
+- Provide context about approximate and anonymised crime locations
+- Custom Overview page styling
+
+### Stage 4b — View Crimes 🚧
+
+- Allow users to select a crime category
+- Explore individual crime records within the selected category
+- Display approximate crime locations
+- Display available outcome information
+
+### Stage 4c — Categories
+
+- Analyse the distribution of crime categories
+- Visualise crime categories using a Matplotlib bar chart
+- Integrate Matplotlib visualisations into the PyQt5 results interface
 
 ## Future Features
 
@@ -63,7 +88,7 @@ Planned work for the current development stage:
 - QSS
 - REST APIs
 - Requests
-- Matplotlib *(planned for Stage 4)*
+- Matplotlib *(planned for Stage 4c)*
 
 ## Project Structure
 
@@ -87,8 +112,8 @@ uk-crime-tracker/
 │   ├── base.css
 │   ├── navigation.css
 │   ├── home.css
-│   └── about.css
+│   ├── about.css
+│   └── overview.css
 │
 ├── README.md
 └── .gitignore
-```

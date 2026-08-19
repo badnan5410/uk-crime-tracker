@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime as dt
 
 def get_police_data(lat, lng, date="2026-01"):
     url = f"https://data.police.uk/api/crimes-street/all-crime?date={date}&lat={lat}&lng={lng}"
@@ -39,8 +40,15 @@ def get_most_common_crime(data):
             crime_category[current_category] = 1
 
     most_common_crime = max(crime_category, key=crime_category.get)
-    return most_common_crime, crime_category[most_common_crime]
+    mcc_formatted = most_common_crime.replace("-", " ").capitalize()
+    return mcc_formatted, crime_category[most_common_crime]
 
+def format_date(date):
+    date_object = dt.strptime(date, "%Y-%m")
+
+    formatted_date = date_object.strftime("%B %Y")
+
+    return formatted_date
 
 # test
 if __name__ == "__main__":
