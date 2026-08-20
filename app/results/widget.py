@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import (
 )
 
 from PyQt5.QtCore import pyqtSignal
-from app.results.pages import Overview, Categories
+from app.results.pages import Overview, Categories, ViewCrimes
 
 class ResultsWidget(QWidget):
     new_search = pyqtSignal()
@@ -27,21 +27,26 @@ class ResultsWidget(QWidget):
         # navigation buttons
         self.overview_button = self.create_nav_button("Overview", "overview-page")
         self.categories_button = self.create_nav_button("Categories", "categories-page")
+        self.view_crimes_button = self.create_nav_button("View Crimes", "view-crimes-page")
+
         self.new_search_button = self.create_nav_button("New Search")
 
         self.nav_buttons = [
             self.overview_button,
             self.categories_button,
+            self.view_crimes_button,
             self.new_search_button
         ]
 
         # pages
         self.overview_page = Overview()
         self.categories_page = Categories()
+        self.view_crimes_page = ViewCrimes()
 
         self.pages = {
             "overview-page": self.overview_page,
-            "categories-page": self.categories_page
+            "categories-page": self.categories_page,
+            "view-crimes-page": self.view_crimes_page
         }
 
         self.initUI()
@@ -58,6 +63,7 @@ class ResultsWidget(QWidget):
         nav_layout = QHBoxLayout()
         nav_layout.addWidget(self.overview_button)
         nav_layout.addWidget(self.categories_button)
+        nav_layout.addWidget(self.view_crimes_button)
         nav_layout.addStretch()
         nav_layout.addWidget(self.new_search_button)
         self.nav_bar.setLayout(nav_layout)

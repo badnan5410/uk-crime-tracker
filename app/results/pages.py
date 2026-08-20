@@ -8,7 +8,6 @@ from PyQt5.QtWidgets import (
 
 from api import police
 
-
 class Overview(QWidget):
     def __init__(self):
         super().__init__()
@@ -160,7 +159,6 @@ class Overview(QWidget):
             "interpreted as the exact locations where incidents occurred."
         )
 
-
 class Categories(QWidget):
     def __init__(self):
         super().__init__()
@@ -170,6 +168,14 @@ class Categories(QWidget):
             "This is the categories page.",
             self
         )
+
+    def update_display(self, geo_data, police_data):
+        pass
+
+class ViewCrimes(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.tag = "view-crimes-pages"
 
     def update_display(self, geo_data, police_data):
         pass
