@@ -43,6 +43,21 @@ def get_most_common_crime(data):
     mcc_formatted = most_common_crime.replace("-", " ").capitalize()
     return mcc_formatted, crime_category[most_common_crime]
 
+def get_crime_categories(data):
+    crime_categories = []
+
+    for record in data:
+        current_record = record["category"].replace("-", " ").capitalize()
+        if current_record not in crime_categories:
+            crime_categories.append(current_record)
+
+    crime_categories.sort()
+    crime_categories.insert(0, "All Crimes")
+    return crime_categories
+
+def format_category_for_api(category):
+    return category.lower().replace(" ", "-")
+
 def format_date(date):
     date_object = dt.strptime(date, "%Y-%m")
 

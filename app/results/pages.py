@@ -3,7 +3,8 @@ from PyQt5.QtWidgets import (
     QWidget,
     QLabel,
     QHBoxLayout,
-    QVBoxLayout
+    QVBoxLayout,
+    QComboBox
 )
 
 from api import police
@@ -189,7 +190,18 @@ class ViewCrimes(QWidget):
         # labels
         self.title_label = QLabel("View Crimes in MONTH YEAR", self.header)
 
+        self.filter_label = QLabel("Filter by Crime:", self.filter)
+        self.crime_filter = QComboBox(self.filter)
+        self.crime_filter.setMaximumWidth(320)
+
+
         self.title_label.setObjectName("view-crimes-header-label")
+        self.filter_label.setObjectName(
+            "view-crimes-filter-label"
+        )
+        self.crime_filter.setObjectName(
+            "view-crimes-crime-filter"
+        )
 
         self.initUI()
 
@@ -206,13 +218,24 @@ class ViewCrimes(QWidget):
         header_layout.addWidget(self.title_label)
         self.header.setLayout(header_layout)
 
+        filter_layout = QHBoxLayout()
+        filter_layout.addStretch()
+        filter_layout.addWidget(self.filter_label)
+        filter_layout.addSpacing(20)
+        filter_layout.addWidget(self.crime_filter)
+        filter_layout.addStretch()
+        self.filter.setLayout(filter_layout)
+
+
         # alignment
         self.title_label.setAlignment(Qt.AlignCenter)
 
 
 
     def update_display(self, geo_data, police_data):
-        pass
+        self.crime_filter.addItems(
+            police.get_crime_categories(police_data)
+        )
 
 class CrimeCard(QWidget):
     def __init__(self, data):
