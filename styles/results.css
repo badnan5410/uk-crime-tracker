@@ -1,0 +1,7 @@
+QWidget#results-nav-bar {
+    background-color: #1F2A3A;
+    min-height: 110px;
+    max-height: 110px;
+    border: none;
+    border-radius: 14px;
+}

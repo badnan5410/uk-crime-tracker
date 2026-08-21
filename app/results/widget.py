@@ -20,7 +20,7 @@ class ResultsWidget(QWidget):
         self.police_data = None
 
         self.nav_bar = QWidget()
-        self.nav_bar.setObjectName("nav-bar")
+        self.nav_bar.setObjectName("results-nav-bar")
 
         self.stack = QStackedWidget()
 
@@ -55,8 +55,8 @@ class ResultsWidget(QWidget):
 
         # main widget layout
         layout = QVBoxLayout()
-        layout.addWidget(self.nav_bar, 1)
-        layout.addWidget(self.stack, 4)
+        layout.addWidget(self.nav_bar)
+        layout.addWidget(self.stack, 1)
         self.setLayout(layout)
 
         # nav-bar layout

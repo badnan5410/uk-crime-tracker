@@ -186,6 +186,11 @@ class ViewCrimes(QWidget):
         self.filter.setObjectName("view-crimes-filter")
         self.list.setObjectName("view-crimes-list")
 
+        # labels
+        self.title_label = QLabel("View Crimes in MONTH YEAR", self.header)
+
+        self.title_label.setObjectName("view-crimes-header-label")
+
         self.initUI()
 
     def initUI(self):
@@ -196,6 +201,13 @@ class ViewCrimes(QWidget):
         layout.addWidget(self.filter, 1)
         layout.addWidget(self.list, 6)
         self.setLayout(layout)
+
+        header_layout = QVBoxLayout()
+        header_layout.addWidget(self.title_label)
+        self.header.setLayout(header_layout)
+
+        # alignment
+        self.title_label.setAlignment(Qt.AlignCenter)
 
 
 
