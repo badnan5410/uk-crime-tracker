@@ -13,7 +13,7 @@ class Overview(QWidget):
         super().__init__()
         self.tag = "overview-page"
 
-        # widgets
+        # containers
         self.header = QWidget(self)
         self.statistics = QWidget(self)
         self.about_results = QWidget(self)
@@ -177,5 +177,39 @@ class ViewCrimes(QWidget):
         super().__init__()
         self.tag = "view-crimes-pages"
 
+        # containers
+        self.header = QWidget()
+        self.filter = QWidget()
+        self.list = QWidget()
+
+        self.header.setObjectName("view-crimes-header")
+        self.filter.setObjectName("view-crimes-filter")
+        self.list.setObjectName("view-crimes-list")
+
+        self.initUI()
+
+    def initUI(self):
+
+        # layout
+        layout = QVBoxLayout()
+        layout.addWidget(self.header, 1)
+        layout.addWidget(self.filter, 1)
+        layout.addWidget(self.list, 6)
+        self.setLayout(layout)
+
+
+
     def update_display(self, geo_data, police_data):
         pass
+
+class CrimeCard(QWidget):
+    def __init__(self, data):
+        super().__init__()
+        self.data = data
+        self.category = self.data["category"]
+        self.location = self.data["location"]["street"]["name"]
+        self.outcome = (
+            self.data["outcome_status"]["category"]
+            if self.data["outcome_status"] is not None
+            else "Unresolved"
+        )
