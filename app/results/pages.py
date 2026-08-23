@@ -1,10 +1,12 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QWidget,
+    QFrame,
     QLabel,
     QHBoxLayout,
     QVBoxLayout,
-    QComboBox
+    QComboBox,
+    QScrollArea
 )
 
 from api import police
@@ -178,6 +180,8 @@ class ViewCrimes(QWidget):
         super().__init__()
         self.tag = "view-crimes-pages"
 
+        self.police_data = None
+
         # containers
         self.header = QWidget()
         self.filter = QWidget()
@@ -203,6 +207,14 @@ class ViewCrimes(QWidget):
             "view-crimes-crime-filter"
         )
 
+        # list cotainer widgets
+        self.scroll_area = QScrollArea(self.list)
+        self.scroll_area.setWidgetResizable(True)
+        self.scroll_area.setObjectName("view-crimes-list-scroll-area")
+
+        self.scroll_content = QWidget()
+        self.scroll_content.setObjectName("view-crimes-list-scroll-content")
+
         self.initUI()
 
     def initUI(self):
@@ -226,18 +238,82 @@ class ViewCrimes(QWidget):
         filter_layout.addStretch()
         self.filter.setLayout(filter_layout)
 
+        self.crime_list_layout = QVBoxLayout()
+        self.crime_list_layout.setContentsMargins(40, 20, 40, 20)
+        self.crime_list_layout.setSpacing(15)
+        self.scroll_content.setLayout(self.crime_list_layout)
+        self.scroll_area.setWidget(self.scroll_content)
+
+        list_layout = QVBoxLayout()
+        list_layout.addWidget(self.scroll_area)
+        self.list.setLayout(list_layout)
 
         # alignment
         self.title_label.setAlignment(Qt.AlignCenter)
 
+        # filter changes
+        self.crime_filter.currentTextChanged.connect(
+            self.filter_crimes
+        )
 
+    def filter_crimes(self, category):
+        self.clear_crime_cards()
+        filtered_records = self.get_filtered_records(self.police_data, category)
+        total = len(filtered_records)
+
+        for index, record in enumerate(filtered_records):
+            card = CrimeCard(record)
+            card.crime_number.setText(f"{index+1} of {total}")
+            self.crime_list_layout.addWidget(
+                card,
+                alignment=Qt.AlignHCenter
+            )
+
+        self.crime_list_layout.addStretch()
 
     def update_display(self, geo_data, police_data):
+
+        # block ComboBox signal
+        self.crime_filter.blockSignals(True)
+
+        self.crime_filter.clear()
+
+        self.police_data = police_data
+
+        date = police.format_date(police_data[0]["month"])
+        self.title_label.setText(
+            f"View Crimes in {date}"
+        )
+
         self.crime_filter.addItems(
             police.get_crime_categories(police_data)
         )
 
-class CrimeCard(QWidget):
+        # re-enable ComboBox signal
+        self.crime_filter.blockSignals(False)
+
+        self.filter_crimes("All Crimes")
+
+    def clear_crime_cards(self):
+        layout = self.crime_list_layout
+
+        while layout.count():
+            item = layout.takeAt(0)
+            widget = item.widget()
+
+            if widget is not None:
+                widget.deleteLater()
+
+    @staticmethod
+    def get_filtered_records(data, category):
+        filtered_records = []
+        for record in data:
+            if record["category"] == police.format_category_for_api(category) or category == "All Crimes":
+                filtered_records.append(record)
+
+        return filtered_records
+
+class CrimeCard(QFrame):
     def __init__(self, data):
         super().__init__()
         self.data = data
@@ -248,3 +324,37 @@ class CrimeCard(QWidget):
             if self.data["outcome_status"] is not None
             else "Unresolved"
         )
+
+        # labels
+        self.crime_title = QLabel(self.category.upper())
+        self.crime_location = QLabel(
+            f"📍 {self.location}"
+        )
+        self.crime_outcome = QLabel(
+            f"Outcome: {self.outcome}"
+        )
+        self.crime_number = QLabel()
+
+        # tags
+        self.setObjectName("crime-card")
+        self.crime_title.setObjectName("crime-card-title")
+        self.crime_location.setObjectName("crime-card-location")
+        self.crime_outcome.setObjectName("crime-card-outcome")
+        self.crime_number.setObjectName("crime-card-number")
+
+        self.setFixedWidth(800)
+        self.setFixedHeight(190)
+
+        self.initUI()
+
+    def initUI(self):
+
+        # layout
+        layout = QVBoxLayout()
+        layout.addWidget(self.crime_title)
+        layout.addWidget(self.crime_location)
+        layout.addWidget(self.crime_outcome)
+        layout.addWidget(self.crime_number, alignment=Qt.AlignRight)
+        self.setLayout(layout)
+
+

@@ -75,3 +75,55 @@ QComboBox#view-crimes-crime-filter QAbstractItemView {
 
     padding: 6px;
 }
+
+QScrollArea#view-crimes-list-scroll-area {
+    background-color: #FFFFFF;
+    border: none;
+}
+
+QWidget#view-crimes-list-scroll-content {
+    background-color: #FFFFFF;
+}
+
+/* Crime Card */
+
+QFrame#crime-card {
+    background-color: #1F2A3A;
+
+    border: 2px solid #1F2A3A;
+    border-radius: 12px;
+}
+
+QLabel#crime-card-title {
+    background-color: transparent;
+    color: #FFFFFF;
+
+    font-family: "Segoe UI";
+    font-size: 30px;
+    font-weight: bold;
+}
+
+QLabel#crime-card-location {
+    background-color: transparent;
+    color: #F3F4F6;
+
+    font-family: "Segoe UI";
+    font-size: 24px;
+}
+
+QLabel#crime-card-outcome {
+    background-color: transparent;
+    color: #F3F4F6;
+
+    font-family: "Segoe UI";
+    font-size: 22px;
+}
+
+QLabel#crime-card-number {
+    background-color: transparent;
+    color: #D1D5DB;
+
+    font-family: "Segoe UI";
+    font-size: 20px;
+    font-weight: bold;
+}
