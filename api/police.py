@@ -29,7 +29,7 @@ def get_police_data(lat, lng, date="2026-01"):
     except requests.exceptions.RequestException as req_error:
         return None, f"Request error:\n{req_error}"
 
-def get_most_common_crime(data):
+def get_most_common_crime_count(data):
     crime_category = {}
 
     for record in data:
@@ -38,6 +38,11 @@ def get_most_common_crime(data):
             crime_category[current_category] += 1
         else:
             crime_category[current_category] = 1
+
+    return crime_category
+
+def get_most_common_crime(data):
+    crime_category = get_most_common_crime_count(data)
 
     most_common_crime = max(crime_category, key=crime_category.get)
     mcc_formatted = most_common_crime.replace("-", " ").capitalize()

@@ -166,6 +166,7 @@ class Categories(QWidget):
     def __init__(self):
         super().__init__()
         self.tag = "categories-page"
+        self.police_data = None
 
         self.page_label = QLabel(
             "This is the categories page.",
@@ -173,7 +174,14 @@ class Categories(QWidget):
         )
 
     def update_display(self, geo_data, police_data):
-        pass
+        self.police_data = police_data
+        category_counts = police.get_most_common_crime_count(
+            self.police_data
+        )
+
+        for category, count in category_counts.items():
+            print(f"{category}: {count}")
+
 
 class ViewCrimes(QWidget):
     def __init__(self):
