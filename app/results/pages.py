@@ -8,6 +8,10 @@ from PyQt5.QtWidgets import (
     QComboBox,
     QScrollArea
 )
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_qt5agg import (
+    FigureCanvasQTAgg as FigureCanvas
+)
 
 from api import police
 
@@ -168,20 +172,125 @@ class Categories(QWidget):
         self.tag = "categories-page"
         self.police_data = None
 
-        self.page_label = QLabel(
-            "This is the categories page.",
-            self
+        # widgets
+        self.header = QWidget()
+        self.chart = QWidget()
+
+        self.header.setObjectName("categories-header")
+        self.chart.setObjectName("categories-chart")
+
+        # labels
+        self.title_label = QLabel("Crime Categories - MONTH YEAR", self.header)
+        self.title_label.setObjectName(
+            "categories-header-label"
         )
+
+        # matplotlib
+        self.figure = Figure()
+        self.canvas = FigureCanvas(self.figure)
+        self.axes = self.figure.add_subplot(111)
+
+        self.canvas.setObjectName("categories-chart-canvas")
+
+        self.initUI()
+
+    def initUI(self):
+
+        # layout
+        layout = QVBoxLayout()
+        layout.addWidget(self.header, 1)
+        layout.addWidget(self.chart, 9)
+        self.setLayout(layout)
+
+        header_layout = QVBoxLayout()
+        header_layout.addWidget(self.title_label)
+        self.header.setLayout(header_layout)
+
+        chart_layout = QVBoxLayout()
+        chart_layout.addWidget(self.canvas)
+        self.chart.setLayout(chart_layout)
+
+        # alingment
+        self.title_label.setAlignment(Qt.AlignCenter)
+
 
     def update_display(self, geo_data, police_data):
         self.police_data = police_data
-        category_counts = police.get_most_common_crime_count(
-            self.police_data
+        category_counts = police.get_crime_category_counts(self.police_data)
+
+        date = police.format_date(police_data[0]["month"])
+        self.title_label.setText(
+            f"Crime Categories - {date}"
         )
 
-        for category, count in category_counts.items():
-            print(f"{category}: {count}")
+        self.update_chart(category_counts)
 
+    def update_chart(self, category_counts):
+
+        # clear old chart
+        self.axes.clear()
+
+        # format category names
+        formatted_categories = []
+
+        for category in category_counts:
+            formatted_category = police.format_category_for_display(
+                category
+            )
+            formatted_categories.append(formatted_category)
+
+        # chart data
+        categories = formatted_categories
+        counts = category_counts.values()
+        bars = self.axes.barh(
+            categories,
+            counts,
+            color="#1F2937"
+        )
+
+        # format chart
+        self.figure.subplots_adjust(
+            left=0.22,
+            right=0.99,
+            top=0.97,
+            bottom=0.08
+        )
+
+        max_count = max(counts)
+        self.axes.set_xlim(
+            0,
+            max_count * 1.15
+        )
+
+        self.axes.bar_label(
+            bars,
+            padding=8,
+            fontsize=11,
+            color="#374151"
+        )
+
+        # styling
+        # matplotlib styling
+        self.figure.set_facecolor("#FFFFFF")
+        self.axes.set_facecolor("#FFFFFF")
+
+        self.axes.tick_params(
+            axis="both",
+            labelsize=12,
+            colors="#374151"
+        )
+
+        self.axes.grid(
+            axis="x",
+            color="#D1D5DB",
+            linewidth=1,
+            alpha=0.7
+        )
+
+        self.axes.set_axisbelow(True)
+
+        # draw new chart
+        self.canvas.draw()
 
 class ViewCrimes(QWidget):
     def __init__(self):
@@ -334,7 +443,9 @@ class CrimeCard(QFrame):
         )
 
         # labels
-        self.crime_title = QLabel(self.category.upper())
+        self.crime_title = QLabel(
+            police.format_category_for_display(self.category)
+        )
         self.crime_location = QLabel(
             f"📍 {self.location}"
         )

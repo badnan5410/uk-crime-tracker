@@ -1,0 +1,25 @@
+QWidget#categories-header {
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#categories-header-label {
+    background-color: transparent;
+    color: #1F2937;
+
+    font-family: "Segoe UI";
+    font-size: 24px;
+    font-weight: bold;
+}
+
+QWidget#categories-chart {
+    background-color: #FFFFFF;
+
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+}
+
+QWidget#categories-chart-canvas {
+    background-color: #FFFFFF;
+    border: none;
+}

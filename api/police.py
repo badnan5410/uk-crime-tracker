@@ -29,7 +29,7 @@ def get_police_data(lat, lng, date="2026-01"):
     except requests.exceptions.RequestException as req_error:
         return None, f"Request error:\n{req_error}"
 
-def get_most_common_crime_count(data):
+def get_crime_category_counts(data):
     crime_category = {}
 
     for record in data:
@@ -42,17 +42,17 @@ def get_most_common_crime_count(data):
     return crime_category
 
 def get_most_common_crime(data):
-    crime_category = get_most_common_crime_count(data)
+    crime_category = get_crime_category_counts(data)
 
     most_common_crime = max(crime_category, key=crime_category.get)
-    mcc_formatted = most_common_crime.replace("-", " ").capitalize()
+    mcc_formatted = format_category_for_display(most_common_crime)
     return mcc_formatted, crime_category[most_common_crime]
 
 def get_crime_categories(data):
     crime_categories = []
 
     for record in data:
-        current_record = record["category"].replace("-", " ").capitalize()
+        current_record = format_category_for_display(record["category"])
         if current_record not in crime_categories:
             crime_categories.append(current_record)
 
@@ -62,6 +62,9 @@ def get_crime_categories(data):
 
 def format_category_for_api(category):
     return category.lower().replace(" ", "-")
+
+def format_category_for_display(category):
+    return category.replace("-", " ").title()
 
 def format_date(date):
     date_object = dt.strptime(date, "%Y-%m")

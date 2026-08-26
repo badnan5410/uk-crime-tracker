@@ -8,13 +8,13 @@ A desktop application for exploring and understanding local crime data across th
 
 Stage 3 — API integration and crime data retrieval — is complete.
 
-Development is currently in Stage 4: data processing and results presentation.
+Development is currently in Stage 4: data processing, exploration, and visualisation.
 
 Stage 4a — the Overview page — is complete.
 
-Stage 4b — the View Crimes page — is now complete, allowing individual Police API crime records to be explored and filtered by crime category.
+Stage 4b — the View Crimes page — is complete, allowing individual Police API crime records to be explored and filtered by crime category.
 
-Development will next move to Stage 4c — Categories, focusing on crime category analysis and data visualisation.
+Stage 4c — the Categories page — is now in development. Crime category data is processed and visualised using a dynamically generated Matplotlib horizontal bar chart embedded directly within the PyQt5 interface.
 
 ## Current Features
 
@@ -35,11 +35,13 @@ Development will next move to Stage 4c — Categories, focusing on crime categor
 - Crime record processing and aggregation
 - Total recorded crime calculation
 - Most common crime category calculation
+- Crime category frequency calculation
 - Human-readable crime category formatting
 - Human-readable reporting month and year formatting
 - Crime records filtered dynamically by category
 - Available police outcome information extracted from individual records
 - Missing outcome information handled as unresolved
+- Crime category data prepared for visualisation
 
 ### Overview Page
 
@@ -67,6 +69,19 @@ Development will next move to Stage 4c — Categories, focusing on crime categor
 - Dynamic result numbering based on the selected category
 - View Crimes data and filters reset correctly when performing a new search
 
+### Categories Page
+
+- Analyse the distribution of recorded crimes by category
+- Dynamically calculate the number of records in each crime category
+- Display human-readable crime category names
+- Visualise crime category distribution using a horizontal bar chart
+- Matplotlib chart embedded directly within the PyQt5 interface
+- Display exact crime counts alongside individual bars
+- Dynamically scale the chart based on the largest category
+- Display reporting month and year
+- Dynamically rebuild the chart when new search data is received
+- Custom chart styling integrated with the application interface
+
 ### Interface
 
 - Separate menu and results navigation
@@ -75,7 +90,7 @@ Development will next move to Stage 4c — Categories, focusing on crime categor
 - Custom PyQt signals for communication between application components
 - About page
 - Custom QSS styling
-- Dedicated styling for Overview and View Crimes pages
+- Dedicated styling for Overview, Categories, and View Crimes pages
 - Modular application structure organised by feature
 
 ## Stage 4 — Results & Data Processing
@@ -109,9 +124,16 @@ Development will next move to Stage 4c — Categories, focusing on crime categor
 
 ### Stage 4c — Categories 🚧
 
-- Analyse the distribution of crime categories
-- Visualise category distribution using a Matplotlib bar chart
-- Integrate Matplotlib visualisations into the PyQt5 results interface
+- Calculate crime frequency by category
+- Format API category names for presentation
+- Visualise category distribution using a horizontal Matplotlib bar chart
+- Embed Matplotlib directly within the PyQt5 results interface
+- Display exact category counts alongside chart bars
+- Dynamically scale the chart according to crime data
+- Refresh the visualisation when a new search is performed
+- Display reporting month and year
+- Add dedicated Categories styling
+- Improve category ordering for easier comparison
 
 ## Future Features
 
@@ -130,7 +152,7 @@ Development will next move to Stage 4c — Categories, focusing on crime categor
 - QSS
 - REST APIs
 - Requests
-- Matplotlib *(planned for Stage 4c)*
+- Matplotlib
 
 ## Project Structure
 
@@ -160,6 +182,7 @@ uk-crime-tracker/
 ├── styles/
 │   ├── about.css
 │   ├── base.css
+│   ├── categories.css
 │   ├── home.css
 │   ├── navigation.css
 │   ├── overview.css
