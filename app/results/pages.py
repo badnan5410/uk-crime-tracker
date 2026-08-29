@@ -230,10 +230,19 @@ class Categories(QWidget):
         # clear old chart
         self.axes.clear()
 
+        # sort category counts
+        sorted_counts = sorted(
+            category_counts.items(),
+            key=lambda item: item[1],
+            reverse=False
+        )
+
+        sorted_counts = dict(sorted_counts)
+
         # format category names
         formatted_categories = []
 
-        for category in category_counts:
+        for category in sorted_counts:
             formatted_category = police.format_category_for_display(
                 category
             )
@@ -241,7 +250,7 @@ class Categories(QWidget):
 
         # chart data
         categories = formatted_categories
-        counts = category_counts.values()
+        counts = sorted_counts.values()
         bars = self.axes.barh(
             categories,
             counts,

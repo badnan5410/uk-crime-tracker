@@ -1,6 +1,5 @@
 import requests
 
-
 def get_postcode(postcode):
     url = "https://api.postcodes.io/postcodes/"
 
