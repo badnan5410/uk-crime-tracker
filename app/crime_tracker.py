@@ -64,7 +64,7 @@ class CrimeTracker(QWidget):
         folder = Path("styles")
         combined_styles = ""
 
-        for file in folder.glob("*.css"):
+        for file in folder.rglob("*.css"):
             with open(file, "r") as f:
                 combined_styles += f.read()
 

@@ -3,7 +3,16 @@ QWidget#nav-bar {
     border-radius: 12px;
 }
 
-QPushButton {
+QWidget#results-nav-bar {
+    background-color: #1F2A3A;
+    min-height: 110px;
+    max-height: 110px;
+    border: none;
+    border-radius: 14px;
+}
+
+QWidget#nav-bar QPushButton,
+QWidget#results-nav-bar QPushButton {
     background-color: transparent;
     color: #D1D5DB;
 
@@ -19,11 +28,13 @@ QPushButton {
     text-align: left;
 }
 
-QPushButton:hover {
+QWidget#nav-bar QPushButton:hover,
+QWidget#results-nav-bar QPushButton:hover {
     background-color: #374151;
     color: #FFFFFF;
 }
 
-QPushButton:pressed {
+QWidget#nav-bar QPushButton:pressed,
+QWidget#results-nav-bar QPushButton:pressed {
     background-color: #4B5563;
 }
