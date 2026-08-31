@@ -25,10 +25,9 @@ class ResultsWidget(QWidget):
         self.stack = QStackedWidget()
 
         # navigation buttons
-        self.overview_button = self.create_nav_button("Overview", "overview-page")
-        self.categories_button = self.create_nav_button("Categories", "categories-page")
-        self.view_crimes_button = self.create_nav_button("View Crimes", "view-crimes-page")
-
+        self.overview_button = self.create_nav_button("Overview")
+        self.categories_button = self.create_nav_button("Categories")
+        self.view_crimes_button = self.create_nav_button("View Crimes")
         self.new_search_button = self.create_nav_button("New Search")
 
         self.nav_buttons = [
@@ -73,19 +72,24 @@ class ResultsWidget(QWidget):
             self.stack.addWidget(page)
 
         # show pages
-        for button in self.nav_buttons:
-            button.clicked.connect(self.display_page)
+        self.overview_button.clicked.connect(
+            lambda: self.display_page(self.overview_page)
+        )
 
-    def display_page(self):
+        self.categories_button.clicked.connect(
+            lambda: self.display_page(self.categories_page)
+        )
+
+        self.view_crimes_button.clicked.connect(
+            lambda: self.display_page(self.view_crimes_page)
+        )
+
+        self.new_search_button.clicked.connect(
+            self.new_search.emit
+        )
+
+    def display_page(self, page):
         button = self.sender()
-
-        if not button.objectName():
-            self.stack.setCurrentWidget(self.overview_page)
-            self.new_search.emit()
-
-        button_tag = button.objectName()
-        page = self.pages.get(button_tag)
-
         self.stack.setCurrentWidget(page)
         self.highlight_button(button)
 
@@ -111,10 +115,7 @@ class ResultsWidget(QWidget):
             page.update_display(self.geo_data, self.police_data)
 
     @staticmethod
-    def create_nav_button(button_name, button_tag=None):
+    def create_nav_button(button_name):
         button = QPushButton(button_name)
-
-        if button_tag is not None:
-            button.setObjectName(button_tag)
 
         return button
