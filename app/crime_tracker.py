@@ -58,6 +58,7 @@ class CrimeTracker(QWidget):
     def open_menu(self):
         self.window_stack.setCurrentWidget(self.menu_widget)
         self.results_widget.stack.setCurrentWidget(self.results_widget.overview_page)
+        self.menu_widget.highlight_button(self.menu_widget.home_button)
 
     @staticmethod
     def load_styles():

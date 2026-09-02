@@ -34,6 +34,9 @@ class MenuWidget(QWidget):
             self.exit_button
         ]
 
+        # highlight home_button
+        self.highlight_button(self.home_button)
+
         # pages
         self.home_page = HomePage()
         self.about_page = AboutPage()

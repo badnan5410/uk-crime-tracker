@@ -15,7 +15,12 @@ def get_police_data(lat, lng, date="2026-01"):
             return None, "API service unavailable"
 
         response.raise_for_status()
-        return response.json(), None
+        data = response.json()
+
+        if not data:
+            return None, f"No records found for {format_date(date)}"
+
+        return data, None
 
     except requests.exceptions.ConnectionError:
         return None, "Connection error:\nCheck your internet connection"
