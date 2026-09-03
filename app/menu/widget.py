@@ -87,10 +87,6 @@ class MenuWidget(QWidget):
 
         page = self.pages.get(button_tag)
 
-        if page.tag == "home-page":
-            page.postcode_input.setText("")
-            page.error_label.setText("")
-
         self.stack.setCurrentWidget(page)
         self.highlight_button(button)
 
