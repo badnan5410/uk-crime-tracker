@@ -89,6 +89,11 @@ class HomePage(QWidget):
             self.year_selected
         )
 
+        # select month
+        self.month_selector.currentIndexChanged.connect(
+            self.month_selected
+        )
+
         # search button
         self.search_button.clicked.connect(
             self.search_postcode
@@ -127,11 +132,56 @@ class HomePage(QWidget):
 
         self.year_selector.addItems(year)
 
+    def populate_month_selector(self):
+
+        # clear old items
+        self.month_selector.clear()
+
+        # full month items
+        months = [
+            "Please select a month", "January", "February", "March", "April",
+            "May", "June", "July", "August",
+            "September", "October", "November", "December"
+        ]
+
+        # check year
+        year = self.year_selector.currentText()
+        current_year = date.today().year
+
+        if year == "2023":
+            months = [
+                "Please select a month",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+            ]
+        elif year == str(current_year):
+            current_month = date.today().month
+
+            months = months[:current_month]
+
+        # refresh month selector
+        self.month_selector.addItems(months)
+
     def year_selected(self):
 
         # disable default text option
         if self.year_selector.currentIndex() != 0:
             item = self.year_selector.model().item(0)
+            item.setEnabled(False)
+
+            # refresh month selector and show it
+            self.populate_month_selector()
+            self.month_selector.show()
+
+    def month_selected(self):
+
+        # disable default text option
+        if self.month_selector.currentIndex() != 0:
+            item = self.month_selector.model().item(0)
             item.setEnabled(False)
 
 class AboutPage(QWidget):
