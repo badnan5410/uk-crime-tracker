@@ -7,9 +7,11 @@ from PyQt5.QtWidgets import (
     QLabel,
     QVBoxLayout,
     QLineEdit,
-    QScrollArea
+    QScrollArea,
+    QComboBox
 )
 
+from datetime import date
 from api import postcodes, police
 
 class HomePage(QWidget):
@@ -31,6 +33,11 @@ class HomePage(QWidget):
         )
         self.postcode_input = QLineEdit()
         self.postcode_input.setPlaceholderText("e.g. SW1A 1AA")
+
+        # year selector
+        self.year_selector = QComboBox()
+        self.populate_year_selector()
+
         self.search_button = QPushButton("Find out now", self)
         self.error_label = QLabel(self)
 
@@ -38,6 +45,7 @@ class HomePage(QWidget):
         self.tag_label.setObjectName("home-tag")
         self.input_label.setObjectName("postcode-label")
         self.postcode_input.setObjectName("postcode-input")
+        self.year_selector.setObjectName("year-selector")
         self.search_button.setObjectName("search-button")
         self.error_label.setObjectName("error-label")
 
@@ -60,7 +68,10 @@ class HomePage(QWidget):
         layout.addWidget(self.postcode_input, alignment=Qt.AlignCenter)
         layout.addSpacing(12)
 
+        layout.addWidget(self.year_selector, alignment=Qt.AlignCenter)
+
         layout.addWidget(self.search_button, alignment=Qt.AlignCenter)
+
         layout.addWidget(self.error_label, alignment=Qt.AlignCenter)
 
         layout.addStretch()
@@ -91,6 +102,16 @@ class HomePage(QWidget):
                     self.error_label.clear()
                     self.postcode_input.clear()
                     self.search_successful.emit(geo_data, police_data)
+
+    def populate_year_selector(self):
+        current_year = date.today().year
+        year = ["Please select a year"]
+
+        while "2023" not in year:
+            year.append(str(current_year))
+            current_year -= 1
+
+        self.year_selector.addItems(year)
 
 class AboutPage(QWidget):
     def __init__(self):
