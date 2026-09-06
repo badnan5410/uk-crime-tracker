@@ -38,6 +38,10 @@ class HomePage(QWidget):
         self.year_selector = QComboBox()
         self.populate_year_selector()
 
+        # month selector
+        self.month_selector = QComboBox()
+        self.month_selector.hide()
+
         self.search_button = QPushButton("Find out now", self)
         self.error_label = QLabel(self)
 
@@ -46,6 +50,7 @@ class HomePage(QWidget):
         self.input_label.setObjectName("postcode-label")
         self.postcode_input.setObjectName("postcode-input")
         self.year_selector.setObjectName("year-selector")
+        self.month_selector.setObjectName("month-selector")
         self.search_button.setObjectName("search-button")
         self.error_label.setObjectName("error-label")
 
@@ -70,6 +75,8 @@ class HomePage(QWidget):
 
         layout.addWidget(self.year_selector, alignment=Qt.AlignCenter)
 
+        layout.addWidget(self.month_selector, alignment=Qt.AlignCenter)
+
         layout.addWidget(self.search_button, alignment=Qt.AlignCenter)
 
         layout.addWidget(self.error_label, alignment=Qt.AlignCenter)
@@ -77,8 +84,15 @@ class HomePage(QWidget):
         layout.addStretch()
         self.setLayout(layout)
 
+        # select year
+        self.year_selector.currentIndexChanged.connect(
+            self.year_selected
+        )
+
         # search button
-        self.search_button.clicked.connect(self.search_postcode)
+        self.search_button.clicked.connect(
+            self.search_postcode
+        )
 
     def search_postcode(self):
         postcode = self.postcode_input.text().strip()
@@ -112,6 +126,13 @@ class HomePage(QWidget):
             current_year -= 1
 
         self.year_selector.addItems(year)
+
+    def year_selected(self):
+
+        # disable default text option
+        if self.year_selector.currentIndex() != 0:
+            item = self.year_selector.model().item(0)
+            item.setEnabled(False)
 
 class AboutPage(QWidget):
     def __init__(self):
