@@ -6,15 +6,15 @@ A desktop application for exploring and understanding local crime data across th
 
 🚧 Currently in development.
 
-Stages 1–4 are complete, covering the application foundation, postcode search, API integration, crime data processing, and the core results interface.
+Stages 1–5 are complete, covering the application foundation, postcode search, API integration, crime data processing, the core results interface, and reporting date selection.
 
-The application can now retrieve street-level crime data for a UK postcode and present it across three results pages:
+The application can now retrieve street-level crime data for a UK postcode and a selected reporting month and year, and present it across three results pages:
 
 - **Overview** — summary statistics and location information
 - **Categories** — crime category distribution visualised with Matplotlib
 - **View Crimes** — individual crime records with category filtering
 
-Development is moving into **Stage 5: Date Selection**, which will allow users to choose the reporting month and year used for crime searches.
+The next planned step is **Stage 6: Search History**, which will allow users to store and revisit previous searches.
 
 ## Current Features
 
@@ -29,6 +29,23 @@ Development is moving into **Stage 5: Date Selection**, which will allow users t
 - User-facing API error messages
 - Geographic and crime data passed between application components
 - Dynamic results refresh when new search data is received
+
+### Date Selection
+
+- Separate year and month selectors on the search page
+- Year options generated dynamically from the current year back to 2023
+- Month options refreshed when the selected year changes
+- July–December offered for 2023; all twelve months offered for intervening years
+- Current-year options limited to months before the current month
+- Month selector shown after a year is chosen
+- Placeholder options disabled after a valid selection
+- Validation requiring a postcode, year, and month before making API requests
+- Selected date formatted as `YYYY-MM` and passed into Police API requests
+- Reporting month and year displayed with the results
+- A message showing the selected reporting period when the API returns no crime records
+- Postcode, error message, and date selectors reset when starting a new search
+
+The date selectors use calendar-based limits rather than checking the Police API's published reporting periods. A selectable month may not yet have published data.
 
 ### Crime Data Processing
 
@@ -147,7 +164,7 @@ Development is moving into **Stage 5: Date Selection**, which will allow users t
 - Display available outcome information
 - Handle records without outcome information
 - Display individual records using reusable crime card widgets
-- Number records according to the currently filtered results
+- Number records according to the selected category
 - Display records inside a scrollable interface
 - Dynamically clear and rebuild displayed records when filters change
 - Reset crime filters and displayed records when a new search is performed
@@ -160,20 +177,24 @@ Development is moving into **Stage 5: Date Selection**, which will allow users t
 - Order categories by crime frequency
 - Visualise category distribution using a horizontal Matplotlib bar chart
 - Embed Matplotlib directly within the PyQt5 results interface
-- Display exact category counts alongside chart bars
+- Display exact crime counts alongside chart bars
 - Dynamically scale the chart according to crime data
 - Refresh the visualisation when a new search is performed
 - Display reporting month and year
 - Add dedicated Categories styling
 
-### Stage 5 — Date Selection 🚧
+### Stage 5 — Date Selection ✅
 
 - Allow users to select a crime reporting month
 - Allow users to select a crime reporting year
+- Populate year options dynamically and refresh month options when the year changes
+- Apply date limits and validate selections before searching
 - Pass the selected date into Police API requests
 - Display results for the selected reporting period
+- Show a reporting-period message when no crime records are returned
+- Reset date selectors when starting a new search
 
-### Stage 6 — Search History
+### Stage 6 — Search History (Next)
 
 - Store previous searches
 - Display previous postcode searches
