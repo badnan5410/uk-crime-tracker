@@ -60,6 +60,17 @@ class CrimeTracker(QWidget):
         self.results_widget.stack.setCurrentWidget(self.results_widget.overview_page)
         self.menu_widget.highlight_button(self.menu_widget.home_button)
 
+        # reset HomePage
+        home_page = self.menu_widget.home_page
+        home_page.postcode_input.clear()
+        home_page.error_label.clear()
+
+        home_page.year_selector.clear()
+        home_page.populate_year_selector()
+
+        home_page.month_selector.clear()
+        home_page.month_selector.hide()
+
     @staticmethod
     def load_styles():
         folder = Path("styles")

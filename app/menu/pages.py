@@ -127,8 +127,6 @@ class HomePage(QWidget):
                 if police_data is None:
                     self.error_label.setText(message)
                 else:
-                    self.error_label.clear()
-                    self.postcode_input.clear()
                     self.search_successful.emit(geo_data, police_data)
 
     def populate_year_selector(self):
@@ -178,7 +176,9 @@ class HomePage(QWidget):
     def year_selected(self):
 
         # disable default text option
-        if self.year_selector.currentIndex() != 0:
+        year = self.year_selector.currentText()
+
+        if year.isdigit():
             item = self.year_selector.model().item(0)
             item.setEnabled(False)
 
@@ -189,7 +189,7 @@ class HomePage(QWidget):
     def month_selected(self):
 
         # disable default text option
-        if self.month_selector.currentIndex() != 0:
+        if self.month_selector.currentIndex() > 0:
             item = self.month_selector.model().item(0)
             item.setEnabled(False)
 
