@@ -102,17 +102,26 @@ class HomePage(QWidget):
     def search_postcode(self):
         postcode = self.postcode_input.text().strip()
 
+        # postcode input validation
         if postcode == "":
             self.error_label.setText("Please enter a postcode")
+
+        # year and month selector validation
+        elif self.year_selector.currentIndex() == 0 or self.month_selector.currentIndex() == 0:
+            self.error_label.setText("Please choose a valid date")
+
         else:
             geo_data, message = postcodes.get_postcode(postcode)
 
             if geo_data is None:
                 self.error_label.setText(message)
             else:
+                date = self.get_selected_date()
+
                 police_data, message = police.get_police_data(
                     geo_data["latitude"],
-                    geo_data["longitude"]
+                    geo_data["longitude"],
+                    date
                 )
 
                 if police_data is None:
@@ -183,6 +192,20 @@ class HomePage(QWidget):
         if self.month_selector.currentIndex() != 0:
             item = self.month_selector.model().item(0)
             item.setEnabled(False)
+
+    def get_selected_date(self):
+        year = self.year_selector.currentText()
+        month_name = self.month_selector.currentText().lower()
+
+        months = [
+            "january", "february", "march", "april", "may", "june",
+            "july", "august", "september", "october", "november", "december"
+        ]
+
+        month = months.index(month_name) + 1
+
+        return f"{year}-{month:02}"
+
 
 class AboutPage(QWidget):
     def __init__(self):

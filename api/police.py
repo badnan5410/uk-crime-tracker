@@ -1,7 +1,7 @@
 import requests
 from datetime import datetime as dt
 
-def get_police_data(lat, lng, date="2026-01"):
+def get_police_data(lat, lng, date):
     url = f"https://data.police.uk/api/crimes-street/all-crime?date={date}&lat={lat}&lng={lng}"
 
     try:
