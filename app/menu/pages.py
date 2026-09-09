@@ -8,7 +8,8 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QLineEdit,
     QScrollArea,
-    QComboBox
+    QComboBox,
+    QFrame
 )
 
 from datetime import date
@@ -206,7 +207,6 @@ class HomePage(QWidget):
 
         return f"{year}-{month:02}"
 
-
 class AboutPage(QWidget):
     def __init__(self):
         super().__init__()
@@ -276,3 +276,12 @@ class HistoryPage(QWidget):
             "This is the history page.",
             self
         )
+
+class HistoryCard(QFrame):
+    def __init__(self, data):
+        super().__init__()
+        self.data = data # this a unique sub-dictionary of the json file
+        self.id = data["id"]
+        self.postcode = data["postcode"]
+        self.reporting_date = data["reporting_date"]
+        self.searched_at = data["searched_at"]
