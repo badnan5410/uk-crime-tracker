@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import (
     QStackedWidget, QVBoxLayout
 )
 
+from app.history_manager import HistoryManager
 from app.menu.widget import MenuWidget
 from app.results.widget import ResultsWidget
 
@@ -16,6 +17,9 @@ class CrimeTracker(QWidget):
         # widgets
         self.menu_widget = MenuWidget()
         self.results_widget = ResultsWidget()
+
+        # history manager
+        self.history_manager = HistoryManager()
 
         self.initUI()
 
