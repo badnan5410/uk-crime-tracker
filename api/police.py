@@ -90,7 +90,7 @@ if __name__ == "__main__":
         'admin_district': 'Westminster'
     }
 
-    date = "2023-07"
+    date = "2023-09"
 
     data, msg = get_police_data(
         geo_data["latitude"],

@@ -53,6 +53,11 @@ class CrimeTracker(QWidget):
         self.results_widget.geo_data = geo_data
         self.results_widget.police_data = police_data
 
+        # create new record inside history
+        postcode = geo_data["postcode"]
+        reporting_date = police_data["month"]
+        self.history_manager.add_record(postcode, reporting_date)
+
         # refresh results widget
         self.results_widget.refresh_results()
 

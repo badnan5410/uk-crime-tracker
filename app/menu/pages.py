@@ -280,7 +280,6 @@ class HistoryPage(QWidget):
 class HistoryCard(QFrame):
     def __init__(self, data):
         super().__init__()
-        self.data = data # this a unique sub-dictionary of the json file
         self.id = data["id"]
         self.postcode = data["postcode"]
         self.reporting_date = data["reporting_date"]
