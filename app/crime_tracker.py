@@ -55,7 +55,7 @@ class CrimeTracker(QWidget):
 
         # create new record inside history
         postcode = geo_data["postcode"]
-        reporting_date = police_data["month"]
+        reporting_date = police_data[0]["month"]
         self.history_manager.add_record(postcode, reporting_date)
 
         # refresh results widget

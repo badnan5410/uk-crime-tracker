@@ -36,8 +36,6 @@ class HistoryManager:
         # insert new record into record_history
         self.record_history.append(history_record)
 
-
-
     @staticmethod
     def get_current_datetime():
         date = datetime.datetime.now()
