@@ -278,9 +278,9 @@ class HistoryPage(QWidget):
         )
 
 class HistoryCard(QFrame):
-    def __init__(self, data):
+    def __init__(self, record):
         super().__init__()
-        self.id = data["id"]
-        self.postcode = data["postcode"]
-        self.reporting_date = data["reporting_date"]
-        self.searched_at = data["searched_at"]
+        self.id = record["id"]
+        self.postcode = record["postcode"]
+        self.reporting_date = record["reporting_date"]
+        self.searched_at = record["searched_at"]
