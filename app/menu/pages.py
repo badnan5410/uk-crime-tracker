@@ -272,10 +272,45 @@ class HistoryPage(QWidget):
         super().__init__()
         self.tag = "history-page"
 
-        self.page_label = QLabel(
-            "This is the history page.",
-            self
+        # containers
+        self.header = QWidget()
+        self.history = QWidget()
+
+        self.header.setObjectName("history-page-header")
+        self.history.setObjectName("history-page-history")
+
+        # labels
+        self.title_label = QLabel(
+            "View Search History", self.header
         )
+        self.title_label.setObjectName(
+            "history-page-title-label"
+        )
+
+        # history container widgets
+        self.scroll_area = QScrollArea(self.history)
+        self.scroll_area.setWidgetResizable(True)
+        self.scroll_area.setObjectName(
+            "history-page-history-scroll-area"
+        )
+
+        self.scroll_content = QWidget()
+        self.scroll_content.setObjectName(
+            "history-page-history-scroll-content"
+        )
+
+        self.empty_message = QLabel(
+            "You have no recent searches",
+            self.history
+        )
+        self.empty_message.setObjectName(
+            "history-page-empty-message-label"
+        )
+
+        self.initUI()
+
+    def initUI(self):
+        pass
 
 class HistoryCard(QFrame):
     def __init__(self, record):
