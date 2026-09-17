@@ -299,18 +299,44 @@ class HistoryPage(QWidget):
             "history-page-history-scroll-content"
         )
 
-        self.empty_message = QLabel(
+        self.empty_message_label = QLabel(
             "You have no recent searches",
-            self.history
+            self.scroll_content
         )
-        self.empty_message.setObjectName(
+        self.empty_message_label.setObjectName(
             "history-page-empty-message-label"
         )
 
         self.initUI()
 
     def initUI(self):
-        pass
+
+        # layout
+        layout = QVBoxLayout()
+        layout.addWidget(self.header, 1)
+        layout.addWidget(self.history, 6)
+        self.setLayout(layout)
+
+        header_layout = QVBoxLayout()
+        header_layout.addWidget(self.title_label)
+        self.header.setLayout(header_layout)
+
+        history_layout = QVBoxLayout()
+        history_layout.addWidget(self.scroll_area)
+        self.history.setLayout(history_layout)
+
+        self.scroll_content_layout = QVBoxLayout()
+        self.scroll_content_layout.addWidget(self.empty_message_label)
+        self.scroll_content.setLayout(self.scroll_content_layout)
+
+        self.scroll_area.setWidget(self.scroll_content)
+
+        # alignment
+        self.title_label.setAlignment(Qt.AlignCenter)
+
+        self.empty_message_label.setAlignment(
+            Qt.AlignCenter
+        )
 
 class HistoryCard(QFrame):
     def __init__(self, record):
