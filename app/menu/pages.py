@@ -345,3 +345,53 @@ class HistoryCard(QFrame):
         self.postcode = record["postcode"]
         self.reporting_date = record["reporting_date"]
         self.searched_at = record["searched_at"]
+
+        # labels
+        self.title_label = QLabel(
+            f"You searched for {self.postcode} · {police.format_date(self.reporting_date)}"
+        )
+        self.searched_at_label = QLabel(
+            f"At {self.searched_at}"
+        )
+
+        # buttons
+        self.search_again_button = QPushButton(
+            "Search Again"
+        )
+        self.delete_record_button = QPushButton(
+            "X"
+        )
+
+        # tags
+        self.title_label.setObjectName(
+            "history-card-title-label"
+        )
+        self.searched_at_label.setObjectName(
+            "history-card-searched-at-label"
+        )
+
+        self.search_again_button.setObjectName(
+            "history-card-search-again-button"
+        )
+        self.delete_record_button.setObjectName(
+            "history-card-delete-record-button"
+        )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
