@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import (
     QLineEdit,
     QScrollArea,
     QComboBox,
-    QFrame
+    QFrame, QHBoxLayout
 )
 
 from datetime import date
@@ -377,6 +377,37 @@ class HistoryCard(QFrame):
             "history-card-delete-record-button"
         )
 
+        self.initUI()
+
+    def initUI(self):
+
+        # layout & alignment
+        left_layout = QVBoxLayout()
+        right_layout = QVBoxLayout()
+
+        left_layout.addWidget(
+            self.title_label, alignment=Qt.AlignLeft
+        )
+        left_layout.addWidget(
+            self.searched_at_label, alignment=Qt.AlignLeft
+        )
+        left_layout.addWidget(
+            self.search_again_button, alignment=Qt.AlignLeft
+        )
+
+        right_layout.addWidget(
+            self.delete_record_button, alignment=Qt.AlignTop | Qt.AlignRight
+        )
+
+        main_layout = QHBoxLayout()
+        main_layout.addLayout(left_layout, 4)
+        main_layout.addLayout(right_layout, 0)
+        self.setLayout(main_layout)
+
+
+
+
+        
 
 
 
