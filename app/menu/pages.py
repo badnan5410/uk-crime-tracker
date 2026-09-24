@@ -8,8 +8,7 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QLineEdit,
     QScrollArea,
-    QComboBox,
-    QFrame, QHBoxLayout
+    QComboBox
 )
 
 from datetime import date
@@ -207,6 +206,7 @@ class HomePage(QWidget):
 
         return f"{year}-{month:02}"
 
+
 class AboutPage(QWidget):
     def __init__(self):
         super().__init__()
@@ -256,173 +256,3 @@ class AboutPage(QWidget):
         page_layout = QVBoxLayout()
         page_layout.addWidget(self.scroll_area)
         self.setLayout(page_layout)
-
-class HowToUsePage(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.tag = "how-to-use-page"
-
-        self.page_label = QLabel(
-            "This is the how to use page.",
-            self
-        )
-
-class HistoryPage(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.tag = "history-page"
-
-        # containers
-        self.header = QWidget()
-        self.history = QWidget()
-
-        self.header.setObjectName("history-page-header")
-        self.history.setObjectName("history-page-history")
-
-        # labels
-        self.title_label = QLabel(
-            "View Search History", self.header
-        )
-        self.title_label.setObjectName(
-            "history-page-title-label"
-        )
-
-        # history container widgets
-        self.scroll_area = QScrollArea(self.history)
-        self.scroll_area.setWidgetResizable(True)
-        self.scroll_area.setObjectName(
-            "history-page-history-scroll-area"
-        )
-
-        self.scroll_content = QWidget()
-        self.scroll_content.setObjectName(
-            "history-page-history-scroll-content"
-        )
-
-        self.empty_message_label = QLabel(
-            "You have no recent searches",
-            self.scroll_content
-        )
-        self.empty_message_label.setObjectName(
-            "history-page-empty-message-label"
-        )
-
-        self.initUI()
-
-    def initUI(self):
-
-        # layout
-        layout = QVBoxLayout()
-        layout.addWidget(self.header, 1)
-        layout.addWidget(self.history, 6)
-        self.setLayout(layout)
-
-        header_layout = QVBoxLayout()
-        header_layout.addWidget(self.title_label)
-        self.header.setLayout(header_layout)
-
-        history_layout = QVBoxLayout()
-        history_layout.addWidget(self.scroll_area)
-        self.history.setLayout(history_layout)
-
-        self.scroll_content_layout = QVBoxLayout()
-        self.scroll_content_layout.addWidget(self.empty_message_label)
-        self.scroll_content.setLayout(self.scroll_content_layout)
-
-        self.scroll_area.setWidget(self.scroll_content)
-
-        # alignment
-        self.title_label.setAlignment(Qt.AlignCenter)
-
-        self.empty_message_label.setAlignment(
-            Qt.AlignCenter
-        )
-
-class HistoryCard(QFrame):
-    def __init__(self, record):
-        super().__init__()
-        self.id = record["id"]
-        self.postcode = record["postcode"]
-        self.reporting_date = record["reporting_date"]
-        self.searched_at = record["searched_at"]
-
-        # labels
-        self.title_label = QLabel(
-            f"You searched for {self.postcode} · {police.format_date(self.reporting_date)}"
-        )
-        self.searched_at_label = QLabel(
-            f"At {self.searched_at}"
-        )
-
-        # buttons
-        self.search_again_button = QPushButton(
-            "Search Again"
-        )
-        self.delete_record_button = QPushButton(
-            "X"
-        )
-
-        # tags
-        self.title_label.setObjectName(
-            "history-card-title-label"
-        )
-        self.searched_at_label.setObjectName(
-            "history-card-searched-at-label"
-        )
-
-        self.search_again_button.setObjectName(
-            "history-card-search-again-button"
-        )
-        self.delete_record_button.setObjectName(
-            "history-card-delete-record-button"
-        )
-
-        self.initUI()
-
-    def initUI(self):
-
-        # layout & alignment
-        left_layout = QVBoxLayout()
-        right_layout = QVBoxLayout()
-
-        left_layout.addWidget(
-            self.title_label, alignment=Qt.AlignLeft
-        )
-        left_layout.addWidget(
-            self.searched_at_label, alignment=Qt.AlignLeft
-        )
-        left_layout.addWidget(
-            self.search_again_button, alignment=Qt.AlignLeft
-        )
-
-        right_layout.addWidget(
-            self.delete_record_button, alignment=Qt.AlignTop | Qt.AlignRight
-        )
-
-        main_layout = QHBoxLayout()
-        main_layout.addLayout(left_layout, 4)
-        main_layout.addLayout(right_layout, 0)
-        self.setLayout(main_layout)
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

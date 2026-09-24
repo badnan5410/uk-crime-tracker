@@ -22,15 +22,11 @@ class MenuWidget(QWidget):
         # navigation nav_buttons
         self.home_button = self.create_nav_button("Home", "home-page")
         self.about_button = self.create_nav_button("About Us", "about-page")
-        self.how_to_use_button = self.create_nav_button("How to Use", "how-to-use-page")
-        self.history_button = self.create_nav_button("Your History", "history-page")
         self.exit_button = self.create_nav_button("Exit")
 
         self.nav_buttons = [
             self.home_button,
             self.about_button,
-            self.how_to_use_button,
-            self.history_button,
             self.exit_button
         ]
 
@@ -40,14 +36,10 @@ class MenuWidget(QWidget):
         # pages
         self.home_page = HomePage()
         self.about_page = AboutPage()
-        self.how_to_use_page = HowToUsePage()
-        self.history_page = HistoryPage()
 
         self.pages = {
             "home-page": self.home_page,
-            "about-page": self.about_page,
-            "how-to-use-page": self.how_to_use_page,
-            "history-page": self.history_page
+            "about-page": self.about_page
         }
 
         self.initUI()
@@ -64,8 +56,6 @@ class MenuWidget(QWidget):
         nav_layout = QVBoxLayout()
         nav_layout.addWidget(self.home_button)
         nav_layout.addWidget(self.about_button)
-        nav_layout.addWidget(self.how_to_use_button)
-        nav_layout.addWidget(self.history_button)
         nav_layout.addWidget(self.exit_button)
         self.nav_bar.setLayout(nav_layout)
 

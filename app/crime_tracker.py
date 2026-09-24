@@ -5,7 +5,6 @@ from PyQt5.QtWidgets import (
     QStackedWidget, QVBoxLayout
 )
 
-from app.history_manager import HistoryManager
 from app.menu.widget import MenuWidget
 from app.results.widget import ResultsWidget
 
@@ -17,9 +16,6 @@ class CrimeTracker(QWidget):
         # widgets
         self.menu_widget = MenuWidget()
         self.results_widget = ResultsWidget()
-
-        # history manager
-        self.history_manager = HistoryManager()
 
         self.initUI()
 
@@ -52,11 +48,6 @@ class CrimeTracker(QWidget):
     def open_results(self, geo_data, police_data):
         self.results_widget.geo_data = geo_data
         self.results_widget.police_data = police_data
-
-        # create new record inside history
-        postcode = geo_data["postcode"]
-        reporting_date = police_data[0]["month"]
-        self.history_manager.add_record(postcode, reporting_date)
 
         # refresh results widget
         self.results_widget.refresh_results()
